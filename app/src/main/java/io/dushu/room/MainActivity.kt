@@ -27,11 +27,4 @@ class MainActivity : AppCompatActivity() {
             System.loadLibrary("native-lib")
         }
     }
-
-    fun InsertClick(view: View) {}
-    fun InsertClick(view: View) {}
-    fun InsertClick(view: View) {}
-    fun DeleteClick(view: View) {}
-    fun UpdateClick(view: View) {}
-    fun QueryClick(view: View) {}
 }

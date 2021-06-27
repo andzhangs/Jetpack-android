@@ -19,62 +19,68 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mDataBinding: ActivityMainBinding
     private lateinit var studentDao: StudentDao
-    private lateinit var list: ArrayList<Student>
+    private val list = arrayListOf<Student>()
     private lateinit var mAdapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        list = arrayListOf<Student>()
+        val database: StudentDataBase = StudentDataBase.getInstance(this)
+        studentDao = database.getStudentDao()
+
         mAdapter = MyAdapter(list)
         mDataBinding.recycleView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
             adapter = mAdapter
         }
-        mDataBinding.recycleView.layoutManager?.scrollToPosition(list.size)
-
-        val database: StudentDataBase = StudentDataBase.getInstance(this)
-        studentDao = database.getStudentDao()
 
         notifyData()
     }
 
     fun InsertClick(view: View) {
         GlobalScope.launch {
-            studentDao.insert(Student(name = "Jack", age = 20))
+            studentDao.insert(Student(0, "Jack", 20))
         }
         notifyData()
     }
 
     fun DeleteClick(view: View) {
         GlobalScope.launch {
-            studentDao.delete(Student(name = "Jack", age = 20))
+            studentDao.delete(Student(2, "Jack", 20))
         }
         notifyData()
     }
 
     fun UpdateClick(view: View) {
         GlobalScope.launch {
-            studentDao.update(Student(name = "Tom", age = 40))
+            studentDao.update(Student(5, "Tom", 60))
         }
         notifyData()
     }
 
     fun QueryClick(view: View) {
         GlobalScope.launch {
-            studentDao.getStudentById(4)
+            list.clear()
+            list.addAll(studentDao.getStudentById(4))
         }
-        notifyData()
+        notifyDataChanged()
+    }
+
+    private fun notifyDataChanged() {
+        list?.let {
+            mAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun notifyData() {
         GlobalScope.launch {
             val data = studentDao.getAllStudent()
+            Log.i("print_log", "notifyData-1：${data.size}")
             if (data.isNotEmpty()) {
                 list.clear()
-                list.addAll(studentDao.getAllStudent())
-                Log.i("print_log", "notifyData：${list.size}")
+                list.addAll(data)
+                Log.w("print_log", "notifyData-2：${list.size}")
             }
         }
         mAdapter.notifyDataSetChanged()
