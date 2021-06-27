@@ -1,0 +1,8 @@
+rootProject.name='Jetpack-android'
+include ':app'
+include ':lifcycle'
+include ':viewmodel'
+include ':livedata'
+include ':livedata_fragment'
+include ':databinding'
+include ':room'
