@@ -383,6 +383,106 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/app/src/main/java/io/dushu/database/BaseActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/app/src/main/java/io/dushu/database/MainActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/app/src/main/java/io/dushu/database/base/BaseActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/app/src/main/res/layout/activity_main.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/build/generated/source/buildConfig/debug/io/dushu/database/BuildConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/build/tmp/kapt3/stubs/debug/io/dushu/database/dao/JsonDao.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/AppDatabase.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/DatabaseManager.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/DatabaseWrapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/JsonViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/base/BaseDao.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/dao/JsonDao.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/entity/JsonEntity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/util/LogUtils.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../dushu-android/huangdou/HDDatabaseKit2/hddatabasekit/src/main/java/io/dushu/database/viewmodel/JsonViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="/fragment.java">
           <value>
             <set />

@@ -2,9 +2,9 @@
 
     <style name="Theme.SplashScreen" parent="Theme.SplashScreenBase">
         <item name="postSplashScreenTheme">?android:attr/theme</item>
-        <item name="windowSplashScreenAnimationDuration">@integer/default_icon_animation_duration</item>
-        <item name="windowSplashScreenBackground">@color/colorPrimaryDark</item>
-        <item name="windowSplashScreenAnimatedIcon">@android:drawable/sym_def_app_icon</item>
+        <item name="windowSplashScreenAnimationDuration">?windowSplashScreenAnimationDuration</item>
+        <item name="windowSplashScreenBackground">?windowSplashScreenBackground</item>
+        <item name="windowSplashScreenAnimatedIcon">?windowSplashScreenAnimatedIcon</item>
     </style>
 
     <style name="Theme.SplashScreenBase" parent="Theme.AppCompat.NoActionBar">
@@ -16,8 +16,8 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
+
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>

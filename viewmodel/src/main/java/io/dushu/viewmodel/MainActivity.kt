@@ -19,6 +19,13 @@ class MainActivity : AppCompatActivity() {
                 .get(MyViewModel::class.java)
 
         textView.text = mViewModel.number.toString()
+
+        if (mViewModel != null) {
+
+        }
+
+
+
     }
 
     fun plusNumber(view: View) {

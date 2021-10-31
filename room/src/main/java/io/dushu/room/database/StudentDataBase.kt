@@ -22,7 +22,9 @@ abstract class StudentDataBase : RoomDatabase() {
         fun getInstance(context: Context): StudentDataBase {
             if (mInstance == null) {
                 mInstance =
-                    Room.databaseBuilder(context.applicationContext, StudentDataBase::class.java, "student_db.db").build()
+                    Room.databaseBuilder(context.applicationContext, StudentDataBase::class.java, "student_db.db")
+                        .addMigrations()
+                        .build()
             }
             return mInstance as StudentDataBase
         }
