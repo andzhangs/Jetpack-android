@@ -2,7 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-
+kapt{
+    generateStubs=true
+}
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -26,10 +28,13 @@ android {
 
     dataBinding.enabled = true
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
 
 }
 
@@ -50,5 +55,7 @@ dependencies {
         exclude group: 'androidx.appcompat', module: 'appcompat-resources'
     }
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    kapt  "com.android.databinding:compiler:3.6.1"
 
 }

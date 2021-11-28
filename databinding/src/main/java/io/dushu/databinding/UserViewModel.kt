@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 
+
 /**
  * author: zhangshuai 6/27/21 4:14 PM
  * email: zhangshuai@dushu365.com
@@ -11,7 +12,7 @@ import androidx.databinding.Bindable
  */
 class UserViewModel : BaseObservable() {
 
-    private var userBean: UserBean = UserBean("使用BaseObservable")
+    var userBean: UserBean = UserBean("使用BaseObservable")
 
 
     @Bindable
@@ -19,6 +20,7 @@ class UserViewModel : BaseObservable() {
 
     fun setUserName(str: String?) {
         userBean.userName = str
+
         notifyPropertyChanged(BR.userName)
         Log.i("print_log","setUserName：$str")
     }

@@ -22,11 +22,10 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(
                 MyViewModel::class.java
             )
-        textview.text = viewModel.getCurrentSecond().value.toString()
 
         viewModel.getCurrentSecond().observe(this,
             { t ->
-                Log.i("print_log", "接收：" + t)
+                Log.i("print_log", "接收：$t")
                 textview.text = t.toString()
             })
     }
@@ -35,11 +34,18 @@ class MainActivity : AppCompatActivity() {
         startTimer()
     }
 
+    private val mTimer:Timer by lazy { Timer() }
     private fun startTimer() {
-        Timer().schedule(object : TimerTask() {
+        mTimer.schedule(object : TimerTask() {
             override fun run() {
                 viewModel.add()
             }
         }, 1000, 1000)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("print_log", "取消：")
+        mTimer.cancel()
     }
 }

@@ -13,5 +13,6 @@ class LifeCycleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         chronometer = findViewById(R.id.chronometer)
         lifecycle.addObserver(chronometer)
+
     }
 }

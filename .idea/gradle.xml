@@ -7,6 +7,8 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="/usr/local/Cellar/gradle/6.3/libexec" />
+        <option name="gradleJvm" value="Embedded JDK" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -15,6 +17,7 @@
             <option value="$PROJECT_DIR$/lifcycle" />
             <option value="$PROJECT_DIR$/livedata" />
             <option value="$PROJECT_DIR$/livedata_fragment" />
+            <option value="$PROJECT_DIR$/navigation" />
             <option value="$PROJECT_DIR$/room" />
             <option value="$PROJECT_DIR$/viewmodel" />
           </set>

@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "io.dushu.room"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -36,10 +36,12 @@ android {
         }
     }
 
-    dataBinding.enabled=true
     compileOptions {
-        sourceCompatibility = kotlin_version
-        targetCompatibility = kotlin_version
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -59,6 +61,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha02'
 
-    //https://mp.weixin.qq.com/s/ks58M7EqzpXKnkCwNVWIGw 启动动画
-    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
+    implementation 'com.github.florent37:viewanimator:1.1.2'
+
+    //https://mp.weixin.qq.com/s/ks58M7EqzpXKnkCwNVWIGw android-12 启动动画
+//    implementation "androidx.core:core-splashscreen:1.0.0-alpha01"
 }
