@@ -27,12 +27,16 @@ class MyViewModel : ViewModel() {
      *                                      LiveData扩展函数
      * ---------------------------------------------------------------------------------------------
      * Transformations
+     * 链接 https://blog.csdn.net/catzifeng/article/details/108189050
      * ---------------------------------------------------------------------------------------------
      */
 
     private val userLiveData: MutableLiveData<User> = MutableLiveData()
 
-    //Transformations.map的使用
+    /**
+     * Transformations.map
+     */
+    //map() 的操作已经是在消费上层 LiveData 的值
     private val transformationsMap =
         Transformations.map(userLiveData, object : Function<User, String> {
             //修改传输过程中的值
@@ -50,12 +54,17 @@ class MyViewModel : ViewModel() {
      *  通过其创建一个新的 LiveData，并且我们可以在其间做一些操作，
      *  无论是单纯的转变类型，或是时间上的耗时操作……
      */
+    //witchMap() 同样使消费了上层 LiveData 的值，但是它又创建了新的生产者，所以其真实的消费并不是由 switchMap() 来执行的
     private val transformationsSwitchMap =
         Transformations.switchMap(userLiveData, object : Function<User, LiveData<String>> {
-            override fun apply(input: User?): MutableLiveData<String> {
-                return MutableLiveData<String>("修改数据后的数据：${input.toString()}")
+            override fun apply(input: User?): LiveData<String> {
+                return newLiveData(input)
             }
         })
+
+    fun newLiveData(user: User?):LiveData<String>{
+        return MutableLiveData("修改数据后的数据：${user.toString()}")
+    }
 
     /**
      * Transformations.distinctUntilChanged
@@ -85,7 +94,8 @@ class MyViewModel : ViewModel() {
      *                                      LiveData扩展函数
      * ---------------------------------------------------------------------------------------------
      * MediatorLiveData 可以接管普通的 LiveData，使得当 LiveData 有数据更新的时候，MediatorLiveData 也能够 “收到响应”。
-     * https://blog.csdn.net/catzifeng/article/details/107775686?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.no_search_link&spm=1001.2101.3001.4242.1
+     * 链接：https://blog.csdn.net/catzifeng/article/details/107775686?utm_medium=distribute.pc_relevant.none-
+     * task-blog-2~default~baidujs_title~default-0.no_search_link&spm=1001.2101.3001.4242.1
      * ---------------------------------------------------------------------------------------------
      */
 
@@ -95,7 +105,7 @@ class MyViewModel : ViewModel() {
     private var isAdd=false
 
     init {
-//        addListener()
+
     }
 
     private fun addListener() {
