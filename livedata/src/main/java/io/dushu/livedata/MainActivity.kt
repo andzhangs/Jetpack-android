@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         viewModel =
             ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(
                 MyViewModel::class.java
@@ -28,6 +27,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("print_log", "接收：$t")
                 textview.text = t.toString()
             })
+        loadListener()
     }
 
     fun clickEvent(view: View) {
@@ -47,5 +47,26 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         Log.i("print_log", "取消：")
         mTimer.cancel()
+    }
+
+    fun clickLiveDataTransformations(view:View){
+        viewModel.setUserData(User("张","帅"))
+    }
+
+    fun clickMediatorLiveData(view:View){
+        viewModel.setMediatorLiveData("Hello world, ")
+    }
+
+    private fun loadListener(){
+        // FIXME: 2021/12/6 激活MediatorLiveData 方式一 
+        viewModel.getMediatorLiveData().observe(this){
+            Log.i("print_logs", "MediatorLiveData激活: $it")
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.unsetMediatorLiveData()
     }
 }

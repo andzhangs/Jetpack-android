@@ -19,28 +19,17 @@ class MainActivity : AppCompatActivity() {
 
         //监听页面跳转
         mFragmentContainer.addOnDestinationChangedListener(object :NavController.OnDestinationChangedListener{
-            /**
-             * Callback for when the [.getCurrentDestination] or its arguments change.
-             * This navigation may be to a destination that has not been seen before, or one that
-             * was previously on the back stack. This method is called after navigation is complete,
-             * but associated transitions may still be playing.
-             *
-             * @param controller the controller that navigated
-             * @param destination the new destination
-             * @param arguments the arguments passed to the destination
-             */
             override fun onDestinationChanged(
                 controller: NavController,
                 destination: NavDestination,
                 arguments: Bundle?
             ) {
-                Log.i("print_logs", "arguments: ${arguments.toString()}")
-                Log.i("print_logs", "onDestinationChanged: ")
+                Log.i("print_logs", "onDestinationChanged: ${arguments.toString()}")
             }
-
         })
     }
 
+    //返回键
     override fun onSupportNavigateUp(): Boolean {
         return mFragmentContainer.navigateUp()
     }

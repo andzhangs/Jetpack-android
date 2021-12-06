@@ -2,6 +2,7 @@ package io.dushu.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 /**
@@ -21,6 +22,5 @@ data class Student(
     @ColumnInfo(name = "age", typeAffinity = ColumnInfo.INTEGER)
     var age: Int=0
 ) {
-
 
 }
