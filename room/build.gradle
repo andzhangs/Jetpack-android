@@ -16,15 +16,16 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        javaCompileOptions {
-//            annotationProcessorOptions {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
 //                arguments += mapOf(
-//                        "room.schemaLocation" to "$projectDir/schemas",
-//                        "room.incremental" to "true",
-//                        "room.expandProjection" to "true"
+//                        "room.schemaLocation": "$projectDir/schemas",
+//                        "room.incremental": "true",
+//                        "room.expandProjection": "true"
 //                )
-//            }
-//        }
+            }
+        }
     }
 
     buildTypes {
@@ -70,6 +71,9 @@ dependencies {
 
     // optional - RxJava2 support for Room
     implementation "androidx.room:room-rxjava2:$room_version"
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha02"
+
 
 }

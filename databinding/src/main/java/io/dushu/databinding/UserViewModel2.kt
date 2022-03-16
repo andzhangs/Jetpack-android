@@ -10,11 +10,10 @@ import androidx.databinding.ObservableField
  */
 class UserViewModel2 {
 
-    private val userField = ObservableField<UserBean>()
-
-    init {
-        val user = UserBean("使用ObservableField")
-        userField.set(user)
+    private val userField by lazy {
+        ObservableField<UserBean>().apply {
+            set(UserBean("使用ObservableField"))
+        }
     }
 
     fun getUserName(): String? = userField.get()?.userName

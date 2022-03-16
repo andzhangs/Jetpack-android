@@ -28,7 +28,6 @@ class LifeCycleServiceActivity : AppCompatActivity() {
     private var mIntent: Intent? = null
 
     fun startGpsLocation(view: View) {
-
         if (mIntent == null) {
             mIntent = Intent(this, MyLocationService::class.java)
         }

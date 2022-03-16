@@ -17,17 +17,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--        Lifecycle-->
+        <!--
+                        Lifecycle
+        -->
         <activity android:name=".lifecycle.LifeCycleActivity">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
-        <!--        LifecycleService-->
+        <!--
+                        LifecycleService
+        -->
         <service android:name=".lifecycleservice.MyLocationService" />
+
         <activity android:name=".lifecycleservice.LifeCycleServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

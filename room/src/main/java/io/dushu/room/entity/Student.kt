@@ -11,16 +11,28 @@ import androidx.room.PrimaryKey
  * mark:
  */
 @Entity(tableName = "student")
-data class Student(
+data class Student constructor(
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id", typeAffinity = ColumnInfo.INTEGER)
-    var id: Int=0,
+    var id: Int = 0,
 
     @ColumnInfo(name = "name", typeAffinity = ColumnInfo.TEXT)
-    var name: String?="",
+    var name: String? = "",
 
     @ColumnInfo(name = "age", typeAffinity = ColumnInfo.INTEGER)
-    var age: Int=0
-) {
+    var age: Int = 0,
 
+//    @ColumnInfo(name = "sex", typeAffinity = ColumnInfo.INTEGER)
+//    var sex: Int = 0,
+
+//    @ColumnInfo(name = "mark", typeAffinity = ColumnInfo.INTEGER)
+//    var mark: Int = 0,
+
+//    @ColumnInfo(name = "mark", typeAffinity = ColumnInfo.TEXT)
+//    var mark: String? = ""
+
+) {
+    @Ignore
+    constructor() : this(0)
 }

@@ -32,9 +32,9 @@ class SecondFragment : Fragment() {
                 MyViewModel::class.java
             )
 
-            viewModel.getProgress().observe(it,{o->
-                seekBar.progress=o
-            })
+            viewModel.getProgress().observe(it) { o ->
+                seekBar.progress = o
+            }
 
             seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(
