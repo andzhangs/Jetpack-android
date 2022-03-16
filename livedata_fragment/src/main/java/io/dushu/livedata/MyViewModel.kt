@@ -1,5 +1,6 @@
 package io.dushu.livedata
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -20,5 +21,9 @@ class MyViewModel : ViewModel() {
 
     fun setProgress(i: Int) {
         livdata.value = i
+    }
+
+    override fun onCleared() {
+        Log.i("print_logs", "MyViewModel::onCleared:()")
     }
 }

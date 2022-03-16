@@ -1,6 +1,7 @@
 package io.dushu.livedata
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,8 @@ class FirstFragment : Fragment() {
             )
 
             viewModel.getProgress().observe(it) { o ->
+                Log.i("print_logs", "onCreateView: ")
+
                 seekBar.progress = o
             }
 

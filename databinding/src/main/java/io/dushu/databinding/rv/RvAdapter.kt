@@ -15,20 +15,23 @@ import io.dushu.databinding.databinding.LayoutItemRecycleViewBinding
 class RvAdapter(var list: ArrayList<DataBean>) : RecyclerView.Adapter<RvAdapter.ItemViewHolder>() {
 
 
-    class ItemViewHolder(var binding: LayoutItemRecycleViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(var binding: LayoutItemRecycleViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val dataBinding= DataBindingUtil.inflate<LayoutItemRecycleViewBinding>(LayoutInflater.from(parent.context),
+        val dataBinding = DataBindingUtil.inflate<LayoutItemRecycleViewBinding>(
+            LayoutInflater.from(parent.context),
             R.layout.layout_item_recycle_view,
             parent,
-            false)
+            false
+        )
         return ItemViewHolder(dataBinding)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.binding.data=list[position]
+        holder.binding.data = list[position]
     }
 
-    override fun getItemCount(): Int =list.size
+    override fun getItemCount(): Int = list.size
 }

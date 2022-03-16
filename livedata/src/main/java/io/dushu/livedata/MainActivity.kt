@@ -22,31 +22,15 @@ class MainActivity : AppCompatActivity() {
                 MyViewModel::class.java
             )
 
-        viewModel.getCurrentSecond().observe(this,
-            { t ->
-                Log.i("print_log", "接收：$t")
-                textview.text = t.toString()
-            })
-        loadListener()
+        lifecycle.addObserver(viewModel)
+
+        viewModel.getCurrentSecond().observe(this) { t ->
+            textview.text = t.toString()
+        }
     }
 
     fun clickEvent(view: View) {
-        startTimer()
-    }
-
-    private val mTimer:Timer by lazy { Timer() }
-    private fun startTimer() {
-        mTimer.schedule(object : TimerTask() {
-            override fun run() {
-                viewModel.add()
-            }
-        }, 1000, 1000)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i("print_log", "取消：")
-        mTimer.cancel()
+        viewModel.startTimer()
     }
 
     fun clickLiveDataTransformations(view:View){
@@ -58,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadListener(){
-        // FIXME: 2021/12/6 激活MediatorLiveData 方式一 
+        // FIXME: 2021/12/6 激活MediatorLiveData 方式一
         viewModel.getMediatorLiveData().observe(this){
             Log.i("print_logs", "MediatorLiveData激活: $it")
         }

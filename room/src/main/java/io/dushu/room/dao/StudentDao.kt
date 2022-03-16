@@ -1,5 +1,6 @@
 package io.dushu.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.dushu.room.entity.Student
 
@@ -12,18 +13,31 @@ import io.dushu.room.entity.Student
 interface StudentDao {
 
     @Insert
-    suspend fun insert(vararg student: Student)
+    fun insert(vararg student: Student)
 
     @Delete
-    suspend fun delete(student: Student)
+    fun delete(student: Student)
+
+    @Query("DELETE FROM student")
+    fun clearAll()
 
     @Update
-    suspend fun update(student: Student)
+    fun update(student: Student)
 
-    @Query("SELECT * FROM student")
-    suspend fun getAllStudent(): List<Student>
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM student ORDER BY id")
+    fun getAllStudent(): List<Student>
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM student WHERE id =:id")
-    suspend fun getStudentById(id: Int): List<Student>
+    fun getStudentById(id: Int): List<Student>
+
+
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @RewriteQueriesToDropUnusedColumns
+    @Query("SELECT * FROM student ORDER BY id")
+    fun getAllStudent2(): LiveData<List<Student>>
 
 }

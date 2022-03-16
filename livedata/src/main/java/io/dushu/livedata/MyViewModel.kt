@@ -3,15 +3,18 @@ package io.dushu.livedata
 import android.util.Log
 import androidx.arch.core.util.Function
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import java.util.*
 
 /**
  * author: zhangshuai 6/26/21 8:37 PM
  * email: zhangshuai@dushu365.com
  * mark:
  */
-class MyViewModel : ViewModel() {
+class MyViewModel : ViewModel(), LifecycleObserver {
 
-    var index = 0
+    private var index = 0
+    private val mTimer: Timer by lazy { Timer() }
 
     private val liveData: MutableLiveData<Int> = MutableLiveData<Int>()
 
@@ -21,6 +24,27 @@ class MyViewModel : ViewModel() {
 
     fun add() {
         liveData.postValue(++index)
+        Log.i("print_log", "接收：$index")
+
+    }
+
+
+    fun startTimer() {
+        mTimer.schedule(object : TimerTask() {
+            override fun run() {
+                add()
+            }
+        }, 1000, 1000)
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun pause() {
+        Log.i("print_log", "取消：")
+        mTimer.cancel()
+    }
+
+    override fun onCleared() {
+        Log.i("print_log", "MyViewModel::onCleared：")
     }
 
     /**
