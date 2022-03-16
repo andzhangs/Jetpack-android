@@ -9,9 +9,4 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-    fun clickMap(view: android.view.View) {}
-    fun clickEvent(view: android.view.View) {}
-    fun clickLiveDataTransformations(view: android.view.View) {}
-    fun clickMediatorLiveData(view: android.view.View) {}
 }

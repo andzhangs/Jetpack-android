@@ -45,13 +45,8 @@ class DetailFragment : Fragment() {
 //        Toast.makeText(activity, "获取：${argsDetail.callback}", Toast.LENGTH_SHORT).show()
 
 
-        //deeplink
-        Toast.makeText(activity, "接收：${arguments?.getString("param1")}, ${arguments?.getInt("param2")}", Toast.LENGTH_SHORT).show()
+        //来自deeplink
+        Toast.makeText(activity, "接收来自Deeplink：${arguments?.getString("param")}, ${arguments?.getString("param1")}, ${arguments?.getInt("param2")}", Toast.LENGTH_SHORT).show()
 
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = DetailFragment()
     }
 }

@@ -2,6 +2,7 @@ package io.dushu.room
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         spinner1.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?,position: Int, id: Long) {
-                Toast.makeText(this@MainActivity, "点击了：${province[position]}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@MainActivity, "点击了：${province[position]}", Toast.LENGTH_SHORT).show()
 
                 provinceindex = position
                 adapter2 = ArrayAdapter(
@@ -57,8 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(this@MainActivity, "什么也没选中", Toast.LENGTH_SHORT).show()
-
+//                Toast.makeText(this@MainActivity, "什么也没选中", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -83,14 +83,22 @@ class MainActivity : AppCompatActivity() {
 
         val acBtnViewAnimator = findViewById<AppCompatButton>(R.id.acBtn_ViewAnimator)
         acBtnViewAnimator.setOnClickListener {
-            ViewAnimator.animate(it).apply {
-                bounce()
-                textColor(R.color.colorAccent)
-                backgroundColor(R.color.colorWhite)
-                duration(500)
-                start()
-            }
+//            ViewAnimator.animate(it).apply {
+//                bounce()
+//                textColor(R.color.colorAccent)
+//                backgroundColor(R.color.colorWhite)
+//                duration(500)
+//                start()
+//            }
         }
+
+        Looper.myQueue().addIdleHandler {
+            //  在这里去处理你想延时加载的东西
+            Toast.makeText(this, "延迟弹出了，${Thread.currentThread().name} ", Toast.LENGTH_SHORT).show()
+            // 最后返回false，后续不用再监听了。
+            false
+        }
+
     }
 
     external fun stringFromJNI(): String

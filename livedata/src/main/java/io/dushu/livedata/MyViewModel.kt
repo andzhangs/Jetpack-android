@@ -24,9 +24,9 @@ class MyViewModel : ViewModel() {
     }
 
     /**
-     *                                      LiveData扩展函数
+     *                                      LiveData扩展函数 之 Transformations
      * ---------------------------------------------------------------------------------------------
-     * Transformations
+     *
      * 链接 https://blog.csdn.net/catzifeng/article/details/108189050
      * ---------------------------------------------------------------------------------------------
      */
@@ -62,7 +62,7 @@ class MyViewModel : ViewModel() {
             }
         })
 
-    fun newLiveData(user: User?):LiveData<String>{
+    private fun newLiveData(user: User?):LiveData<String>{
         return MutableLiveData("修改数据后的数据：${user.toString()}")
     }
 
@@ -72,8 +72,7 @@ class MyViewModel : ViewModel() {
      *  那么返回的 LiveData 只接收第一次返回的值，除非源 LiveData 设置新的值。
      *  当LiveData传值没有改变时，后续不会在发送。非理性数据去重
      */
-    private val transformationsDistinctUntilChanged =
-        Transformations.distinctUntilChanged(userLiveData)
+    private val transformationsDistinctUntilChanged = Transformations.distinctUntilChanged(userLiveData)
 
 
     fun setUserData(user: User) {
@@ -91,7 +90,7 @@ class MyViewModel : ViewModel() {
 
 
     /**
-     *                                      LiveData扩展函数
+     *                                      LiveData扩展函数 之 MediatorLiveData
      * ---------------------------------------------------------------------------------------------
      * MediatorLiveData 可以接管普通的 LiveData，使得当 LiveData 有数据更新的时候，MediatorLiveData 也能够 “收到响应”。
      * 链接：https://blog.csdn.net/catzifeng/article/details/107775686?utm_medium=distribute.pc_relevant.none-
@@ -103,10 +102,6 @@ class MyViewModel : ViewModel() {
     private val originData2 = MutableLiveData<String>()
     private val mediatorLiveData = MediatorLiveData<String>()
     private var isAdd=false
-
-    init {
-
-    }
 
     private fun addListener() {
         Log.i("print_logs", "添加监听 ");
