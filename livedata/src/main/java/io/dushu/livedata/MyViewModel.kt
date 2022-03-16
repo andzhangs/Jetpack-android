@@ -3,8 +3,7 @@ package io.dushu.livedata
 import android.util.Log
 import androidx.arch.core.util.Function
 import androidx.lifecycle.*
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import java.util.*
 
 /**
