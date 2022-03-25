@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.navigation.NavArgs
+import androidx.navigation.NavArgsLazy
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 
@@ -17,7 +19,6 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
@@ -30,6 +31,10 @@ class DetailFragment : Fragment() {
         }
     }
 
+    //别忘了添加插件
+    // 第一步：classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5'
+    // 第二步：plugin { id("androidx.navigation.safeargs.kotlin") }
+    val argsHome: HomeFragmentArgs by navArgs()
     val argsDetail:DetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,16 +42,16 @@ class DetailFragment : Fragment() {
         //接收值方式一
 //        val fromBundle = HomeFragmentArgs.fromBundle(requireArguments())
 //        Toast.makeText(activity, "获取：${fromBundle.userName}, ${fromBundle.userAge}", Toast.LENGTH_SHORT).show()
-
-//         val fromBundle1 = DetailFragmentArgs.fromBundle(requireArguments())
-//        Toast.makeText(activity, "获取：${fromBundle1.callback}", Toast.LENGTH_SHORT).show()
-
-        //接收值二
-//        Toast.makeText(activity, "获取：${argsDetail.callback}", Toast.LENGTH_SHORT).show()
-
+        //安全取值
+//        Toast.makeText(activity, "获取：${argsHome.userName}, ${argsHome.userAge}", Toast.LENGTH_SHORT).show()
 
         //来自deeplink
-        Toast.makeText(activity, "接收来自Deeplink：${arguments?.getString("param")}, ${arguments?.getString("param1")}, ${arguments?.getInt("param2")}", Toast.LENGTH_SHORT).show()
+        if (argsHome.deeplinkParams != "unknown") {
+            Toast.makeText(activity, "DeepLink之UrlPendingIntent：${argsHome.deeplinkParams}}", Toast.LENGTH_SHORT)
+                .show()
+        }
 
+        //Url
+        Toast.makeText(activity, "DeepLink之Url: ${arguments?.getString("params")}", Toast.LENGTH_SHORT).show()
     }
 }
