@@ -16,7 +16,7 @@ import coil.load
 /**
  * 加载网络图片
  */
-@BindingAdapter("app:httpUrl")
+@BindingAdapter("httpUrl")
 fun setNetworkImage(img: AppCompatImageView, url: String) {
     Log.i("print_log", "setImage：${img.id}, $url")
     val dispose = img.load(url)
@@ -27,7 +27,7 @@ fun setNetworkImage(img: AppCompatImageView, url: String) {
 /**
  * 加载本地图片
  */
-@BindingAdapter("app:assetUrl")
+@BindingAdapter("assetUrl")
 fun setAssetImage(img: AppCompatImageView, fileName: String) {
     Log.i("print_log", "setLocalImage：${img.id}, $fileName")
     try {
@@ -44,7 +44,7 @@ fun setAssetImage(img: AppCompatImageView, fileName: String) {
 /**
  * 加载Drawable图片
  */
-@BindingAdapter("app:intResImg")
+@BindingAdapter("intResImg")
 fun setLocalResImage(img: AppCompatImageView, @DrawableRes resId: Int) {
     Log.i("print_log", "setLocalResImage：${img.id}, $resId")
     img.load(resId)
