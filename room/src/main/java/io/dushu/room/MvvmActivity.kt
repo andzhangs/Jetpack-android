@@ -1,5 +1,6 @@
 package io.dushu.room
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,6 +25,7 @@ class MvvmActivity: AppCompatActivity() {
     private lateinit var mAdapter: MyAdapter
     private lateinit var mStudentViewModel: StudentViewModel
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mDataBinding = DataBindingUtil.setContentView(this@MvvmActivity, R.layout.activity_main)
@@ -34,6 +36,7 @@ class MvvmActivity: AppCompatActivity() {
             adapter = mAdapter
         }
         mStudentViewModel=ViewModelProvider(this,ViewModelProvider.AndroidViewModelFactory(this.application)).get(StudentViewModel::class.java)
+
         mStudentViewModel.getAllStudent2().observe(this){
             Log.i("print_logs", "MvvmActivity::observe: ${it.size}")
             list.clear()

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "io.jetpack.workmanager"
@@ -50,8 +50,14 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    //ViewModelScope
+    implementation('androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0')
+    //LifecycleScope
+    implementation('androidx.lifecycle:lifecycle-runtime-ktx:2.4.0')
+    //Live-Data
+    implementation('androidx.lifecycle:lifecycle-livedata-ktx:2.4.0')
 
-    def work_version = "2.0.1"
+    def work_version = "2.7.1"
     // (Java only)
     implementation "androidx.work:work-runtime-ktx:$work_version"
     // optional - RxJava2 support

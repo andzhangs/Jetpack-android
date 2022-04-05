@@ -11,14 +11,16 @@ import io.dushu.room.entity.Student
  * @date 2022/3/14 21:53
  * @description
  */
-class StudentRepository(context: Context) {
+class StudentRepository(private val context: Context) {
 
-    private val mStudentDao: StudentDao = StudentDataBase.getInstance(context).getStudentDao()
+    private val mStudentDao: StudentDao by lazy {
+        StudentDataBase.getInstance(context).getStudentDao()
+    }
 
     /**
      * 添加
      */
-    fun insertStudent(student: Student) {
+    fun insertStudent(student: Student){
         mStudentDao.insert(student)
     }
 
@@ -52,7 +54,7 @@ class StudentRepository(context: Context) {
     /**
      * 精确查找
      */
-    fun selectStudentById(id: Int): List<Student> = mStudentDao.getStudentById(id)
+    fun selectStudentById(id: Int): LiveData<List<Student>> = mStudentDao.getStudentById(id)
 
     /**
      * 查询全部

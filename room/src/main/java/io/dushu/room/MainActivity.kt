@@ -65,12 +65,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun QueryClick(view: View) {
-        lifecycleScope.launch {
+//        lifecycleScope.launch {
+//            list.clear()
+//            withContext(Dispatchers.IO) {
+//                list.addAll(studentDao.getStudentById(4))
+//            }
+//        }
+
+        studentDao.getStudentById(4).observe(this){
+            Log.i("print_logs", "MainActivity::QueryClick: ${it.size}")
             list.clear()
-            withContext(Dispatchers.IO) {
-                list.addAll(studentDao.getStudentById(4))
-            }
+            list.addAll(it)
         }
+
         notifyDataChanged()
     }
 

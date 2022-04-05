@@ -32,7 +32,7 @@ interface StudentDao {
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM student WHERE id =:id")
-    fun getStudentById(id: Int): List<Student>
+    fun getStudentById(id: Int): LiveData<List<Student>>
 
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)

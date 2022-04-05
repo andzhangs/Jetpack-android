@@ -1,9 +1,11 @@
 package io.jetpack.workmanager.demo.works
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.work.*
 import io.jetpack.workmanager.databinding.ActivityWorkBinding
 import io.jetpack.workmanager.utils.viewBinding
@@ -42,23 +44,27 @@ class WorkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         mBinding.acBtnStartWork.setOnClickListener {
-            starWork()
+            starUploadWork()
+//            startExpeditedWorker()
         }
 
         mBinding.acBtnCancelWork.setOnClickListener {
-            WorkManager.getInstance().cancelWorkById(mOneTimeWorkRequest.id)
+            WorkManager.getInstance(this).cancelWorkById(mOneTimeWorkRequest.id)
             // or
             // WorkManager.getInstance().cancelAllWorkByTag(ID_MARK)
         }
     }
 
-    private fun starWork() {
+    @SuppressLint("IdleBatteryChargingConstraints")
+    private fun starUploadWork() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //约束
             val constraints = Constraints.Builder()
+                .setRequiresBatteryNotLow(true) // 低电量是不运行工作
+                .setRequiresStorageNotLow(true) // 存储空间不足时 不运行工作
                 .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresDeviceIdle(true)
-                .setRequiresCharging(true)
+//                .setRequiresDeviceIdle(true) //设备必须在空闲状态
+//                .setRequiresCharging(true) //设备充电时运行
                 .build()
 
             val dataBuilder = Data.Builder()
@@ -69,22 +75,31 @@ class WorkActivity : AppCompatActivity() {
                 .build()
 
             //一次性工作
+            //方式一
             mOneTimeWorkRequest = OneTimeWorkRequest.Builder(DemoUploadWorker::class.java)
                 .setConstraints(constraints)
                 .setInputData(dataBuilder)
-//                .setInitialDelay(3,TimeUnit.SECONDS) //延时
                 .addTag(ID_MARK)
                 .build()
+            //方式二
+//            val uploadWorkRequest= OneTimeWorkRequestBuilder<DemoUploadWorker>()
+//                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST) //加急作业
+//                .setInitialDelay(3,TimeUnit.SECONDS) //加入队列后至少经过2秒钟后再运行
+//                .setConstraints(constraints)
+//                .setInputData(dataBuilder)
+//                .addTag(ID_MARK)
+//                .build()
 
-            val operation = WorkManager.getInstance().enqueue(mOneTimeWorkRequest)
-            //工作前
+            val operation = WorkManager.getInstance(this).enqueue(mOneTimeWorkRequest)
+
+
             operation.state.observe(this) {
                 Log.i("print_logs", "WorkActivity::onChanged: $it")
             }
 
             // Observing your work
             // After you enqueue your work, WorkManager allows you to check on its status
-            WorkManager.getInstance().getWorkInfoByIdLiveData(mOneTimeWorkRequest.id)
+            WorkManager.getInstance(this).getWorkInfoByIdLiveData(mOneTimeWorkRequest.id)
                 .observe(this) {
                     if (it.state == WorkInfo.State.SUCCEEDED) {
                         val data = it.outputData.getString(DemoUploadWorker.OUTPUT_URI)
@@ -92,6 +107,7 @@ class WorkActivity : AppCompatActivity() {
                             "print_logs",
                             "WorkActivity::starWork::mOneTimeWorkRequest work is finished, $data"
                         )
+                        Toast.makeText(this@WorkActivity, data, Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -117,5 +133,78 @@ class WorkActivity : AppCompatActivity() {
         }
     }
 
+
+    /**
+     * 杂项，不可运行
+     */
+    private fun startExpeditedWorker() {
+        //约束
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresCharging(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            constraints.setRequiresDeviceIdle(true)
+        }
+        constraints.build()
+
+        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<ExpeditedWorker>()
+             //输入合并器
+            .setInputMerger(ArrayCreatingInputMerger::class) // 会尝试合并输入，并在必要时创建数组。
+            .setInputMerger(OverwritingInputMerger::class) // 会尝试将所有输入中的所有键添加到输出中。如果发生冲突，它会覆盖先前设置的键
+            .build()
+
+        //以下是可在每小时的最后 15 分钟内运行的定期工作的示例
+        val periodicWorkRequest =
+            PeriodicWorkRequestBuilder<ExpeditedWorker>(1, TimeUnit.HOURS, 15, TimeUnit.SECONDS)
+                .setBackoffCriteria(  //重试和退避政策
+                    BackoffPolicy.LINEAR, // 退避政策定义了在后续重试过程中，退避延迟时间随时间以怎样的方式增长 LINEAR 或 EXPONENTIAL
+                    PeriodicWorkRequest.MIN_BACKOFF_MILLIS, // 退避延迟时间指定了首次尝试后重试工作前的最短等待时间。此值不能超过 10 秒（或 MIN_BACKOFF_MILLIS）
+                    TimeUnit.MILLISECONDS
+                )
+                .addTag(ID_MARK) // 标记
+                .setInputData(workDataOf("image_uri" to "I am from WorkActivity"))
+                .build()
+
+
+        val configuration = Configuration.Builder().build()
+        WorkManager.initialize(this, configuration)
+
+        //计入队列
+        WorkManager.getInstance(this).enqueue(periodicWorkRequest)
+
+
+        /**
+         * ExistingWorkPolicy:
+         * REPLACE：用新工作替换现有工作。此选项将取消现有工作。
+         * KEEP：保留现有工作，并忽略新工作。
+         * APPEND：将新工作附加到现有工作的末尾。此政策将导致您的新工作链接到现有工作，在现有工作完成后运行。
+         */
+        //管理工作
+        WorkManager.getInstance(this).enqueueUniqueWork(
+            ID_MARK,
+            ExistingWorkPolicy.APPEND_OR_REPLACE,
+            oneTimeWorkRequest
+        ) //用户一次性工作
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            ID_MARK,
+            ExistingPeriodicWorkPolicy.KEEP,
+            periodicWorkRequest
+        ) //用于定期工作
+
+        //复杂的工作查询
+        val build = WorkQuery.Builder
+            .fromTags(listOf("syncTag"))
+            .addStates(listOf(WorkInfo.State.FAILED, WorkInfo.State.CANCELLED))
+            .addUniqueWorkNames(listOf("sync,preProcess"))
+            .build()
+
+        WorkManager.getInstance(this).getWorkInfoByIdLiveData(periodicWorkRequest.id)
+            .observe(this) {
+                val progress=it.progress
+                val value=progress.getInt(ExpeditedWorker.Progress,0)
+            }
+
+    }
 
 }

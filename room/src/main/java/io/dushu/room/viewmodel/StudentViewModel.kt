@@ -17,9 +17,9 @@ import kotlinx.coroutines.withContext
  */
 class StudentViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val mStudentRepository: StudentRepository = StudentRepository(application)
+    private val mStudentRepository: StudentRepository by lazy { StudentRepository(application) }
 
-    fun insert(student: Student) {
+    fun insert(student: Student){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 mStudentRepository.insertStudent(student)
@@ -51,14 +51,15 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getStudentById(id: Int): List<Student> {
-        var data = arrayListOf<Student>()
-        viewModelScope.async {
-            withContext(Dispatchers.IO) {
-                data = mStudentRepository.selectStudentById(id) as ArrayList<Student>
-            }
-        }
-        return data
+    fun getStudentById(id: Int): LiveData<List<Student>> {
+//        var data = arrayListOf<Student>()
+//        viewModelScope.async {
+//            withContext(Dispatchers.IO) {
+//                data = mStudentRepository.selectStudentById(id) as ArrayList<Student>
+//            }
+//        }
+//        return data
+        return mStudentRepository.selectStudentById(id)
     }
 
 
