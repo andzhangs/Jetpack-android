@@ -16,16 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".WorkActivity"
-        android:theme="@style/Theme.Jetpackandroid">
         <activity android:name=".video.MyWorkActivity"
-            android:exported="true">
-        </activity>
+            android:exported="false" />
         <activity android:name=".demo.works.WorkActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity android:name=".demo.jobs.MainJobActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -33,6 +29,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.android.jetpack.workmanager.MainActivity"
+            android:exported="false" />
+        <activity android:name="com.android.jetpack.workmanager.WorkActivity"
+            android:exported="false" />
 
     </application>
 

@@ -11,10 +11,10 @@ plugins {
 apply from: "${rootDir}/appConfig.gradle"
 
 android {
-    namespace 'com.android.jetpack.workmanager'
+    namespace 'io.jetpack.workmanager'
 
     defaultConfig {
-        applicationId "com.android.jetpack.workmanager"
+        applicationId "io.jetpack.workmanager"
         versionCode 1
         versionName "1.0"
 
@@ -30,12 +30,12 @@ android {
 
 }
 
-    configurations {
-        cleanedAnnotations
-        // implementation.exclude group: 'org.jetbrains' , module:'annotations'
-        implementation.exclude group: 'com.intellij' , module:'annotations'
-    }
+configurations {
+    cleanedAnnotations
+    // implementation.exclude group: 'org.jetbrains' , module:'annotations'
+    implementation.exclude group: 'com.intellij' , module:'annotations'
 }
+
 dependencies {
 //    implementation fileTree(include: ['*.jar'], dir: 'libs')
 //    implementation 'com.android.support:appcompat-v7:28.0.0'

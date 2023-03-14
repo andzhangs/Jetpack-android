@@ -3,17 +3,15 @@ package com.android.jetpack.workmanager.works;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.jetpack.workmanager.WorkActivity;
-import com.evernote.android.job.BuildConfig;
-
 import androidx.annotation.NonNull;
 import androidx.work.Data;
 import androidx.work.Worker;
-import androidx.work.WorkerFactory;
 import androidx.work.WorkerParameters;
-import androidx.work.impl.utils.taskexecutor.TaskExecutor;
 
 
+/**
+ * @author zhangshuai
+ */
 public class UploadWorker extends Worker {
 
     public static final String TAG = "Upload_Worker";

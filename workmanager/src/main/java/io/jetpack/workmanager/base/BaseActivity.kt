@@ -1,10 +1,6 @@
 package io.jetpack.workmanager.base
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.ViewBinding
-import io.jetpack.workmanager.databinding.ActivityMainBinding
-import io.jetpack.workmanager.utils.viewBinding
 
 /**
  * @author zhangshuai

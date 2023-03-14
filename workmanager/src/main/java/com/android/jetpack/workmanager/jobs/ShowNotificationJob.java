@@ -17,20 +17,16 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.jetpack.workmanager.MainActivity;
-import com.android.jetpack.workmanager.R;
 import com.android.jetpack.workmanager.WorkActivity;
 import com.evernote.android.job.Job;
-import com.evernote.android.job.JobManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Random;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
+import io.jetpack.workmanager.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 

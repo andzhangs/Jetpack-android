@@ -3,7 +3,7 @@ package com.android.jetpack.workmanager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
+import com.android.jetpack.workmanager.works.UploadWorker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.work.Constraints;
@@ -13,8 +13,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.Operation;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-
-import com.android.jetpack.workmanager.works.UploadWorker;
+import io.jetpack.workmanager.R;
 
 /**
  * 链式调用:
@@ -85,7 +84,7 @@ public class WorkActivity extends AppCompatActivity {
                     .addTag(ID_MARK)
                     .build();
 
-            Operation operation = WorkManager.getInstance().enqueue(oneTimeWorkRequest);
+            Operation operation = WorkManager.getInstance(this).enqueue(oneTimeWorkRequest);
             //工作前
             operation.getState().observe(this, new Observer<Operation.State>() {
                 @Override
