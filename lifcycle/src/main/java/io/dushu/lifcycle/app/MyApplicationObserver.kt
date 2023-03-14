@@ -1,7 +1,7 @@
 package io.dushu.lifcycle.app
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * author: zhangshuai 6/26/21 7:39 PM
@@ -11,41 +11,29 @@ import androidx.lifecycle.*
  *  2、ON_CREATE：只会被调用一次，
  *  3、ON_DESTROY：永远不会调用
  */
-internal class MyApplicationObserver : LifecycleObserver {
+internal class MyApplicationObserver : DefaultLifecycleObserver {
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    private fun onCreate() {
-        Log.i("print_log", "onCreate：")
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    private fun onStart() {
-        Log.i("print_log", "onStart：")
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun onResume() {
-        Log.i("print_log", "onResume：")
+    override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    private fun onPause() {
-        Log.i("print_log", "onPause：")
+    override fun onPause(owner: LifecycleOwner) {
+        super.onPause(owner)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun onStop() {
-        Log.i("print_log", "onStop：")
+    override fun onStop(owner: LifecycleOwner) {
+        super.onStop(owner)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun onDestroy() {
-        Log.i("print_log", "onDestroy：")
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
     }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
-    private fun onAny() {
-//        Log.i("print_log", "onAny：")
-    }
-
 }

@@ -1,14 +1,11 @@
 package io.dushu.livedata
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,26 +21,35 @@ class MainActivity : AppCompatActivity() {
 
         lifecycle.addObserver(viewModel)
 
+        val textview=findViewById<AppCompatTextView>(R.id.textview)
+
         viewModel.getCurrentSecond().observe(this) { t ->
             textview.text = t.toString()
         }
+
+
+        NetWorkLiveData.getInstance(this@MainActivity)
+            .observe(this@MainActivity){
+                Log.i("print_logs", "MainActivity::onCreate: $it")
+            }
+
     }
 
     fun clickEvent(view: View) {
         viewModel.startTimer()
     }
 
-    fun clickLiveDataTransformations(view:View){
-        viewModel.setUserData(User("张","帅"))
+    fun clickLiveDataTransformations(view: View) {
+        viewModel.setUserData(User("张", "帅"))
     }
 
-    fun clickMediatorLiveData(view:View){
+    fun clickMediatorLiveData(view: View) {
         viewModel.setMediatorLiveData("Hello world, ")
     }
 
-    private fun loadListener(){
+    private fun loadListener() {
         // FIXME: 2021/12/6 激活MediatorLiveData 方式一
-        viewModel.getMediatorLiveData().observe(this){
+        viewModel.getMediatorLiveData().observe(this) {
             Log.i("print_logs", "MediatorLiveData激活: $it")
         }
     }

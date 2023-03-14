@@ -1,6 +1,8 @@
 package app
 
 import android.app.Application
+import java.io.FileInputStream
+import java.nio.channels.FileChannel
 
 /**
  * @Author zhangshuai
@@ -8,6 +10,12 @@ import android.app.Application
  * @Emial zhangshuai@dushu365.com
  * @Description
  */
-class JetpackApplication:Application() {
+class JetpackApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        val fileChannel: FileChannel = FileInputStream("").channel
+
+    }
 
 }

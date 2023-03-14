@@ -4,9 +4,8 @@ import android.content.Context
 import android.os.SystemClock
 import android.util.AttributeSet
 import android.widget.Chronometer
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 
 /**
  * author: zhangshuai 6/26/21 5:59 PM
@@ -15,21 +14,35 @@ import androidx.lifecycle.OnLifecycleEvent
  *
  * SystemClock.elapsedRealtime() 开机之后的时间
  */
-open class MyChronometer(context: Context?, attrs: AttributeSet?) : Chronometer(context, attrs),
-    LifecycleObserver {
+open class MyChronometer(context: Context?, attrs: AttributeSet?) : Chronometer(context, attrs), DefaultLifecycleObserver{
 
     private var elapsedTime: Long = 0L
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun startMeter() {
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+    }
+
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
         base = SystemClock.elapsedRealtime() - elapsedTime
         start()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun stopMeter() {
+    override fun onResume(owner: LifecycleOwner) {
+        super.onResume(owner)
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        super.onPause(owner)
         elapsedTime = SystemClock.elapsedRealtime() - base
         stop()
     }
 
+    override fun onStop(owner: LifecycleOwner) {
+        super.onStop(owner)
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+    }
 }

@@ -4,24 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".demo.works.WorkActivity">
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/acBtnStart_Work"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="开始工作"
+    tools:context=".WorkActivity">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llc_work"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/acBtnCancel_Work"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="取消工作"
-        app:layout_constraintTop_toBottomOf="@id/acBtnStart_Work"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/acBtn_startWork"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="开启Work" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/acBtn_cancelWork"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="取消Work" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,7 @@ import coil.load
 @BindingAdapter("httpUrl")
 fun setNetworkImage(img: AppCompatImageView, url: String) {
     Log.i("print_log", "setImage：${img.id}, $url")
-    val dispose = img.load(url)
+//    val dispose = img.load(url)
     //手动销毁
 //    dispose.dispose()
 }

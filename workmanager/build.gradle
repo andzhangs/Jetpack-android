@@ -1,15 +1,20 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlinx-serialization'
+    
 }
 
+apply from: "${rootDir}/appConfig.gradle"
+
 android {
-    compileSdk 31
+    namespace 'com.android.jetpack.workmanager'
 
     defaultConfig {
-        applicationId "io.jetpack.workmanager"
-        minSdk 21
-        targetSdk 30
+        applicationId "com.android.jetpack.workmanager"
         versionCode 1
         versionName "1.0"
 
@@ -22,16 +27,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-    buildFeatures{
-        viewBinding true
-    }
+
+}
 
     configurations {
         cleanedAnnotations
@@ -40,36 +37,21 @@ android {
     }
 }
 dependencies {
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.room:room-compiler:2.4.2'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    //ViewModelScope
-    implementation('androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0')
-    //LifecycleScope
-    implementation('androidx.lifecycle:lifecycle-runtime-ktx:2.4.0')
-    //Live-Data
-    implementation('androidx.lifecycle:lifecycle-livedata-ktx:2.4.0')
-
-    def work_version = "2.7.1"
-    // (Java only)
-    implementation "androidx.work:work-runtime-ktx:$work_version"
-    // optional - RxJava2 support
-    implementation "androidx.work:work-rxjava2:$work_version"
-    // optional - GCMNetworkManager support
-//    implementation "androidx.work:work-gcm:$work_version"
-    // optional - Test helpers
-    androidTestImplementation "androidx.work:work-testing:$work_version"
-    // optional - Multiprocess support
-//    implementation "androidx.work:work-multiprocess:$work_version"
-
-    //另一种后台执行
-    implementation 'com.evernote:android-job:1.2.6'
-
+//    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    implementation 'com.android.support:appcompat-v7:28.0.0'
+//    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+//    implementation 'androidx.appcompat:appcompat:1.5.1'
+//    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+//    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//    def work_version = '2.1.0'
+//    // (Java only)
+//    implementation "androidx.work:work-runtime:work_version"
+//    // optional - RxJava2 support
+//    implementation "androidx.work:work-rxjava2:$work_version"
+//    // optional - Test helpers
+//    androidTestImplementation "androidx.work:work-testing:$work_version"
+//    //另一种后台执行
+//    implementation 'com.evernote:android-job:1.2.6'
 }

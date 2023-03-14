@@ -1,6 +1,7 @@
 package io.dushu.livedata
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -17,7 +18,7 @@ class MyViewModel : ViewModel() {
         }
     }
 
-    fun getProgress() = livdata
+    fun getProgress(): LiveData<Int> = livdata
 
     fun setProgress(i: Int) {
         livdata.value = i

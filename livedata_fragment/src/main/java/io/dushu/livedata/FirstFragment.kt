@@ -1,14 +1,12 @@
 package io.dushu.livedata
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 
 /**
  * author: zhangshuai 6/26/21 9:57 PM
@@ -24,7 +22,7 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         rootView = inflater.inflate(R.layout.fragment_first, container, false)
         seekBar = rootView.findViewById(R.id.seekBar1)
 
@@ -32,14 +30,10 @@ class FirstFragment : Fragment() {
             val viewModel = ViewModelProvider(
                 it,
                 ViewModelProvider.AndroidViewModelFactory(it.application)
-            ).get(
-                MyViewModel::class.java
-            )
+            )[MyViewModel::class.java]
 
-            viewModel.getProgress().observe(it) { o ->
-                Log.i("print_logs", "onCreateView: ")
-
-                seekBar.progress = o
+            viewModel.getProgress().observe(requireActivity()){num->
+                seekBar.progress = num
             }
 
             seekBar.setOnSeekBarChangeListener(object :

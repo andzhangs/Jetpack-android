@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 
 /**
  * author: zhangshuai 6/26/21 9:57 PM
@@ -28,12 +27,10 @@ class SecondFragment : Fragment() {
         seekBar=rootView.findViewById<SeekBar>(R.id.seekBar2)
 
         activity?.let {
-            val viewModel= ViewModelProvider(it, ViewModelProvider.AndroidViewModelFactory(it.application)).get(
-                MyViewModel::class.java
-            )
+            val viewModel= ViewModelProvider(it, ViewModelProvider.AndroidViewModelFactory(it.application))[MyViewModel::class.java]
 
-            viewModel.getProgress().observe(it) { o ->
-                seekBar.progress = o
+            viewModel.getProgress().observe(requireActivity()){num->
+                seekBar.progress = num
             }
 
             seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{

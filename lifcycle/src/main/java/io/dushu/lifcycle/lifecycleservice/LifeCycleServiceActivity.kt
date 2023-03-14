@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import io.dushu.lifcycle.R
-import kotlinx.android.synthetic.main.activity_life_cycle_service.*
 
 class LifeCycleServiceActivity : AppCompatActivity() {
 
