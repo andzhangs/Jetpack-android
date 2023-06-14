@@ -7,11 +7,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.dushu.room.databinding.ActivityMainBinding
 import io.dushu.room.entity.Student
 import io.dushu.room.viewmodel.StudentViewModel
+import kotlinx.coroutines.launch
 
 /**
  * @author zhangshuai
@@ -45,6 +47,12 @@ class MvvmActivity: AppCompatActivity() {
                 mDataBinding.recycleView.smoothScrollToPosition(list.size - 1)
             }
             mAdapter.notifyDataSetChanged()
+        }
+
+        lifecycleScope.launch{
+            mStudentViewModel.getAllStudent3().collect{
+                Log.i("print_logs", "getAllStudent3: $it")
+            }
         }
     }
 

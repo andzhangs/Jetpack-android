@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
@@ -13,7 +14,11 @@ import androidx.lifecycle.ViewModelProvider
  * email: zhangshuai@dushu365.com
  * mark:
  */
+
+
 class FirstFragment : Fragment() {
+
+
 
     private lateinit var rootView: View
     private lateinit var seekBar: SeekBar
@@ -32,10 +37,18 @@ class FirstFragment : Fragment() {
                 ViewModelProvider.AndroidViewModelFactory(it.application)
             )[MyViewModel::class.java]
 
-            viewModel.getProgress().observe(requireActivity()){num->
+            viewModel.getProgress().observe(requireActivity()) { num ->
                 seekBar.progress = num
             }
 
+            //方式一
+            rootView.findViewById<AppCompatButton>(R.id.mBtnSend).setOnClickListener {
+                parentFragmentManager.setFragmentResult(SecondFragment.KEY, Bundle().apply {
+                    this.putString(SecondFragment.KEY, "Successes")
+                })
+            }
+
+            //方式二
             seekBar.setOnSeekBarChangeListener(object :
                 SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(
@@ -51,9 +64,7 @@ class FirstFragment : Fragment() {
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 }
-
             })
-
         }
 
         return rootView

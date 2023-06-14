@@ -21,6 +21,31 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Customize your theme here. -->
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@android:color/black</item>
+
+        <item name="android:windowActionBar">false</item>
     </style>
+
+
+    <!--    启动页Style -->
+    <style name="Theme.SplashScreen.Starting" parent="Theme.SplashScreen">
+
+        <!--以特定的单色填充背景-->
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+
+        <!-- 启动页展示的图片,替换起始窗口中心的图标 @color/transparent-->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/white</item>
+
+        <!-- 展示时常(低版本不生效需要代码设置) 以在显示起始窗口的同时播放动画-->
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+
+        <!-- 启动画面退出后 Activity 的主题-->
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+
 
 </resources>

@@ -1,12 +1,13 @@
 package io.dushu.room.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
-import io.dushu.room.dao.StudentDao
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import io.dushu.room.entity.Student
 import io.dushu.room.repository.StudentRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -19,7 +20,7 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
 
     private val mStudentRepository: StudentRepository by lazy { StudentRepository(application) }
 
-    fun insert(student: Student){
+    fun insert(student: Student) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 mStudentRepository.insertStudent(student)
@@ -65,6 +66,11 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
 
     fun getAllStudent2(): LiveData<List<Student>> {
         return mStudentRepository.getAll()
+    }
+
+
+    fun getAllStudent3(): Flow<List<Student>> {
+        return mStudentRepository.getAllFlow()
     }
 
 }

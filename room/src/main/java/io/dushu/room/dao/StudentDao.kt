@@ -3,6 +3,7 @@ package io.dushu.room.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.dushu.room.entity.Student
+import kotlinx.coroutines.flow.Flow
 
 /**
  * author: zhangshuai 6/27/21 8:55 PM
@@ -39,5 +40,8 @@ interface StudentDao {
     @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM student ORDER BY id")
     fun getAllStudent2(): LiveData<List<Student>>
+
+    @Query("SELECT * FROM student ORDER BY id")
+    fun getAllStudent3() : Flow<List<Student>>
 
 }

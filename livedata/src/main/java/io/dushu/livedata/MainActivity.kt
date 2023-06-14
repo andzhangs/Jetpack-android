@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onDestroy() {
+        lifecycle.removeObserver(viewModel)
         super.onDestroy()
         viewModel.unsetMediatorLiveData()
     }

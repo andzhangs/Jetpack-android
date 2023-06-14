@@ -21,12 +21,10 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-//                arguments += mapOf(
-//                        "room.schemaLocation": "$projectDir/schemas",
-//                        "room.incremental": "true",
-//                        "room.expandProjection": "true"
-//                )
+                arguments = ["room.schemaLocation"  : "$projectDir/schemas".toString(), //作用是将配置并启把据库架构导出json文件到指定目录
+                             "room.incremental"     : "true", //启用 Gradle 增量注解处理器
+                             "room.expandProjection": "true"  //配置 Room 以重写查询，使其顶部星形投影在展开后仅包含 DAO 方法返回类型中定义的列。
+                ]
             }
         }
     }

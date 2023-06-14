@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
@@ -14,6 +15,10 @@ import androidx.lifecycle.ViewModelProvider
  * mark:
  */
 class SecondFragment : Fragment() {
+
+    companion object {
+        const val KEY = "key"
+    }
 
     private lateinit var rootView: View
     private lateinit var seekBar:SeekBar
@@ -33,6 +38,16 @@ class SecondFragment : Fragment() {
                 seekBar.progress = num
             }
 
+            //接收
+            parentFragmentManager.setFragmentResultListener(KEY,this) { requestKey, result ->
+                Toast.makeText(
+                    context,
+                    result.getString(requestKey),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+
             seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(
                     seekBar: SeekBar?,
@@ -47,9 +62,7 @@ class SecondFragment : Fragment() {
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 }
-
             })
-
         }
 
 

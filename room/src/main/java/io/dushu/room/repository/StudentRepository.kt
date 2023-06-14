@@ -5,6 +5,9 @@ import androidx.lifecycle.LiveData
 import io.dushu.room.dao.StudentDao
 import io.dushu.room.database.StudentDataBase
 import io.dushu.room.entity.Student
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 
 /**
  * @author zhangshuai
@@ -20,7 +23,7 @@ class StudentRepository(private val context: Context) {
     /**
      * 添加
      */
-    fun insertStudent(student: Student){
+    fun insertStudent(student: Student) {
         mStudentDao.insert(student)
     }
 
@@ -61,5 +64,6 @@ class StudentRepository(private val context: Context) {
      */
     fun getAll(): LiveData<List<Student>> = mStudentDao.getAllStudent2()
 
+    fun getAllFlow() : Flow<List<Student>> = mStudentDao.getAllStudent3().flowOn(Dispatchers.IO)
 
 }
