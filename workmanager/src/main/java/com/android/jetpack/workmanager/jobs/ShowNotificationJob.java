@@ -69,11 +69,8 @@ public class ShowNotificationJob extends Job {
         NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
         notificationManager.createNotificationChannel(channel);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                getContext(),
-                0,
-                new Intent(getContext(), WorkActivity.class),
-                0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, new Intent(getContext(), WorkActivity.class), PendingIntent.FLAG_IMMUTABLE);
+
 
         Notification notification = new NotificationCompat.Builder(getContext(), "chat")
                 .setContentTitle("收到一条聊天消息")
