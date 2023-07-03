@@ -1,7 +1,6 @@
 package base
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -17,7 +16,7 @@ abstract class BaseActivity<DB : ViewDataBinding> : AppCompatActivity() {
     lateinit var mDataBinding: DB
 
     open fun onCreateBefore(savedInstanceState: Bundle?) {
-        Log.d("print_logs", "BaseDataBindingActivity::onCreateBefore: ")
+
     }
 
     @LayoutRes

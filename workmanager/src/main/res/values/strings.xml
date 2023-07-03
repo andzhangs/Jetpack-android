@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">workmanager_module</string>
+    <string name="app_name">图小小相册</string>
+    <string name="action_notification_cancelled">notification_cancelled</string>
 </resources>

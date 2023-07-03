@@ -38,7 +38,7 @@ class SecondFragment : Fragment() {
                 seekBar.progress = num
             }
 
-            //接收
+            //方式一：接收
             parentFragmentManager.setFragmentResultListener(KEY,this) { requestKey, result ->
                 Toast.makeText(
                     context,
@@ -47,7 +47,7 @@ class SecondFragment : Fragment() {
                 ).show()
             }
 
-
+            //方式二：接收
             seekBar.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(
                     seekBar: SeekBar?,

@@ -38,10 +38,4 @@ public class UploadWorker extends Worker {
         return Result.success(dataOutput);
     }
 
-    @Override
-    public void onStopped() {
-        super.onStopped();
-        Log.i(TAG, "UploadWorker  onStopped: ");
-    }
-
 }

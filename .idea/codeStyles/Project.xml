@@ -8,6 +8,7 @@
       </value>
     </option>
     <option name="LINE_SEPARATOR" value="&#10;" />
+    <option name="ENABLE_SECOND_REFORMAT" value="true" />
     <AndroidXmlCodeStyleSettings>
       <option name="LAYOUT_SETTINGS">
         <value>
