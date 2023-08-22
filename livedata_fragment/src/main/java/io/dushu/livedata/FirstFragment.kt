@@ -14,11 +14,7 @@ import androidx.lifecycle.ViewModelProvider
  * email: zhangshuai@dushu365.com
  * mark:
  */
-
-
 class FirstFragment : Fragment() {
-
-
 
     private lateinit var rootView: View
     private lateinit var seekBar: SeekBar

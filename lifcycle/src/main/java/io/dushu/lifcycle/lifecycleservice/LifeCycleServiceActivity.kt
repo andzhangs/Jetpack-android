@@ -2,11 +2,22 @@ package io.dushu.lifcycle.lifecycleservice
 
 import android.Manifest
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import io.dushu.lifcycle.BuildConfig
 import io.dushu.lifcycle.R
+import io.reactivex.Observable
+import io.reactivex.processors.PublishProcessor
+import org.reactivestreams.Publisher
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
+import java.util.concurrent.TimeUnit
 
 class LifeCycleServiceActivity : AppCompatActivity() {
 
@@ -22,6 +33,65 @@ class LifeCycleServiceActivity : AppCompatActivity() {
             ),
             200
         )
+        
+        val liveData = MutableLiveData<String>()
+
+        LiveDataReactiveStreams.toPublisher(this,liveData).subscribe(object :Subscriber<String>{
+            override fun onSubscribe(s: Subscription?) {
+                if (BuildConfig.DEBUG) {
+                    Log.i("print_logs", "LifeCycleServiceActivity::onSubscribe: ")
+                }
+            }
+
+            override fun onError(t: Throwable?) {
+                if (BuildConfig.DEBUG) {
+                    Log.d("print_logs", "LifeCycleServiceActivity::onError: $t")
+                }
+            }
+
+            override fun onComplete() {
+                if (BuildConfig.DEBUG) {
+                    Log.i("print_logs", "LifeCycleServiceActivity::onComplete: ")
+                }
+            }
+
+            override fun onNext(t: String?) {
+                if (BuildConfig.DEBUG) {
+                    Log.i("print_logs", "LifeCycleServiceActivity::onNext: $t")
+                }
+            }
+        })
+
+        LiveDataReactiveStreams.fromPublisher(object :Publisher<String>{
+            override fun subscribe(s: Subscriber<in String>?) {
+                s?.onNext("我是来自 'fromPublisher' ")
+                s?.onComplete()
+            }
+        }).observe(this,object :Observer<String>{
+            override fun onChanged(t: String?) {
+                if (BuildConfig.DEBUG) {
+                    Log.i("print_logs", "LifeCycleServiceActivity::onChanged: $t")
+                }
+            }
+        })
+
+        val stringProcessor= PublishProcessor.create<String>()
+        val mLivedata=LiveDataReactiveStreams.fromPublisher(stringProcessor.toList().toFlowable())
+        Observable.interval(0,1,TimeUnit.SECONDS)
+            .map { it->
+                if (BuildConfig.DEBUG) {
+                    Log.i("print_logs", "LifeCycleServiceActivity::onCreate: $it")
+                }
+                stringProcessor.onNext("value= $it")
+                return@map it
+            }.subscribe()
+
+        mLivedata.observe(this){
+            if (BuildConfig.DEBUG) {
+                Log.i("print_logs", "LifeCycleServiceActivity::mLivedata: $it")
+            }
+        }
+
     }
 
     private var mIntent: Intent? = null
