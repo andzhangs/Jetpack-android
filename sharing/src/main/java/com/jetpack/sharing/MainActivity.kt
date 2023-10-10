@@ -1,6 +1,5 @@
 package com.jetpack.sharing
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.app.ShareCompat
 
+
 class MainActivity : AppCompatActivity() {
 
     private val description = "来自ShareCompat的图片分享"
@@ -18,11 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-
-        }.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-
         val launcherPicture =
             registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia()) {
                 it?.also { uris ->
@@ -106,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         val shareCompatIntent = ShareCompat.IntentBuilder(this)
             .apply {
                 uris.forEach { uri ->
+                    ShareConfig.setUriQueries(this@MainActivity, uri)
                     addStream(uri)
                 }
             }

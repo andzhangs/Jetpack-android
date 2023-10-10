@@ -1,6 +1,7 @@
 package io.dushu.viewmodel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 
@@ -19,4 +20,11 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         Toast.makeText(getApplication(), string, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        if (BuildConfig.DEBUG) {
+            Log.i("print_logs", "MyViewModel::onCleared: ")
+        }
+    }
+    
 }
