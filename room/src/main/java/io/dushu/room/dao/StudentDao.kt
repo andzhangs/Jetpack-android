@@ -26,18 +26,18 @@ interface StudentDao {
     fun update(student: Student)
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @RewriteQueriesToDropUnusedColumns
+//    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM student ORDER BY id")
-    fun getAllStudent(): List<Student>
+    fun getAllStudent(): MutableList<Student>
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @RewriteQueriesToDropUnusedColumns
+//    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM student WHERE id =:id")
     fun getStudentById(id: Int): LiveData<List<Student>>
 
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    @RewriteQueriesToDropUnusedColumns
+//    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM student ORDER BY id")
     fun getAllStudent2(): LiveData<List<Student>>
 
