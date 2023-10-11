@@ -39,6 +39,7 @@ class RemoteCallBackService : Service() {
 
         /**
          * 接收来自客户端的数据
+         * 有个Bug，服务解绑了，还能接收到信息
          */
         override fun callServer(msg: String?) {
             if (BuildConfig.DEBUG) {
@@ -48,7 +49,6 @@ class RemoteCallBackService : Service() {
             Toast.makeText(this@RemoteCallBackService, msg, Toast.LENGTH_SHORT).show()
 
             sendMsg()
-
         }
     }
 

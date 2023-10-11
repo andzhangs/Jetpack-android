@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         //解绑服务
         mDataBinding.acBtnUnbind.setOnClickListener {
-            unbindService(serviceConnection)
             mIServerCallBack?.unregister(mClientCallBack)
+            unbindService(serviceConnection)
         }
 
         mDataBinding.acBtnCallServer.setOnClickListener {
@@ -59,7 +59,11 @@ class MainActivity : AppCompatActivity() {
                 Log.i("print_logs", "MainActivity::onServiceConnected: ")
             }
             mIServerCallBack = IServerCallBack.Stub.asInterface(service)
-            mIServerCallBack?.register(mClientCallBack)
+            try {
+                mIServerCallBack?.register(mClientCallBack)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
