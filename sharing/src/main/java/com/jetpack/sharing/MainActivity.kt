@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +47,20 @@ class MainActivity : AppCompatActivity() {
         //分享视频
         findViewById<AppCompatButton>(R.id.acBtn_sharing_video).setOnClickListener {
             launcherVideo.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
+        }
+
+
+        val startActivityForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            Log.i("print_logs", "MainActivity::onCreate: ${it.resultCode}")
+            if (it.resultCode == RESULT_OK) {
+                val msg=it.data?.getStringExtra(PickActivity.KEY_RESULT)
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        //分享文件
+        findViewById<AppCompatButton>(R.id.acBtn_pick).setOnClickListener {
+            startActivityForResult.launch(Intent(this,PickActivity::class.java))
         }
     }
 

@@ -10,5 +10,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        val mSliceView = findViewById<SliceView>(R.id.slice_view)
+//        mSliceView.slice
+
     }
 }

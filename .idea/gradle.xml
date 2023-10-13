@@ -13,7 +13,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/remotecallback" />
+            <option value="$PROJECT_DIR$/loader" />
+            <option value="$PROJECT_DIR$/sharing" />
+            <option value="$PROJECT_DIR$/versionedparcelable" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".PickActivity">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/acBtn_1"
+        android:id="@+id/acBtn_return"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="序列化" />
+        android:text="返回"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/acBtn_2"
+        android:id="@+id/acBtn_send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="反序列化" />
+        android:text="发送文件"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

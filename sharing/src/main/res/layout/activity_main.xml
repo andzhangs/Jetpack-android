@@ -25,4 +25,10 @@
         android:layout_height="wrap_content"
         android:text="分享视频"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/acBtn_pick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分享文件-Pick"/>
+
 </androidx.appcompat.widget.LinearLayoutCompat>
