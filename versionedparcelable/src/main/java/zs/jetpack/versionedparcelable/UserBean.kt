@@ -1,7 +1,6 @@
 package zs.jetpack.versionedparcelable
 
-import android.os.Parcel
-import android.os.Parcelable
+import androidx.versionedparcelable.NonParcelField
 import androidx.versionedparcelable.VersionedParcelable
 import androidx.versionedparcelable.VersionedParcelize
 
@@ -12,30 +11,10 @@ import androidx.versionedparcelable.VersionedParcelize
  * @mark 自定义类描述
  */
 @VersionedParcelize
-class UserBean() : Parcelable, VersionedParcelable {
+class UserBean : VersionedParcelable {
 
     var name: String = ""
 
-    constructor(parcel: Parcel) : this() {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<UserBean> {
-        override fun createFromParcel(parcel: Parcel): UserBean {
-            return UserBean(parcel)
-        }
-
-        override fun newArray(size: Int): Array<UserBean?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-
+    @NonParcelField
+    var age: Int = 0
 }
