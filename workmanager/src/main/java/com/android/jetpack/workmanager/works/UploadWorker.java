@@ -14,8 +14,8 @@ import androidx.work.WorkerParameters;
  */
 public class UploadWorker extends Worker {
 
-    public static final String TAG = "Upload_Worker";
-
+    private static final String TAG = "print_logs";
+    
     public static final String INPUT_URI = "";
     public static final String OUTPUT_URI = "";
 
@@ -26,16 +26,39 @@ public class UploadWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.i(TAG, "UploadWorker  doWork: " + Thread.currentThread());
-        // Get the input
-        String imageUriInput = getInputData().getString(INPUT_URI);
-        Log.i(TAG, "接收的图片地址：" + imageUriInput);
+        Log.i(TAG, "doWork: ");
+        try {
+            Data.Builder dataBuilder = new Data.Builder();
+            for (int i = 1; i <= 5; i++) {
+                if (!isStopped()) {
+                    Log.i(TAG, "doWork: "+ i);
+                    setProgressAsync(dataBuilder.putInt("progress",i).build());
+                    Thread.sleep(1000L);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if (isStopped()) {
+            return Result.failure();
+        }else{
+            // Get the input
+            String imageUriInput = getInputData().getString(INPUT_URI);
+            Log.i(TAG, "UploadWorker doWork(): 接收的图片地址：" + imageUriInput);
 
-        //Create the output of the work
-        Data dataOutput = new Data.Builder().putString(OUTPUT_URI, "http://lorempixel.com/g/300/200/").build();
+            //Create the output of the work
+            Data dataOutput = new Data.Builder().putString(OUTPUT_URI, "http://lorempixel.com/g/300/200/").putInt("progress",200).build();
 
-        Log.i(TAG, "发送的图片："+dataOutput.getString(OUTPUT_URI));
-        return Result.success(dataOutput);
+            Log.i(TAG, "UploadWorker doWork(): 发送的图片："+dataOutput.getString(OUTPUT_URI) + ", "+dataOutput.getInt("progress",-1));
+            return Result.success(dataOutput);
+        }
     }
 
+    @Override
+    public void onStopped() {
+        super.onStopped();
+        Log.i(TAG, "onStopped: ");
+    }
+    
+    
 }

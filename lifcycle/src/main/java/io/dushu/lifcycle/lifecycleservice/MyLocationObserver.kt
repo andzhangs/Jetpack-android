@@ -25,7 +25,7 @@ class MyLocationObserver constructor(private val context: Context) : LifecycleOb
     private var mLocationListener: MyLocationListener? = null
 
     init {
-        Log.i("print_log", "MyLocationObserver")
+        Log.i("print_log", "MyLocationObserver is init.")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

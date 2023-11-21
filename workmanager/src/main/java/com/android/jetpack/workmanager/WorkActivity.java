@@ -48,6 +48,8 @@ import io.jetpack.workmanager.R;
  */
 public class WorkActivity extends AppCompatActivity {
 
+    private static final String TAG = "print_logs";
+    
     private OneTimeWorkRequest oneTimeWorkRequest;
     private String ID_MARK = "First_Work";
 
@@ -80,8 +82,8 @@ public class WorkActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             Constraints constraints = new Constraints.Builder()
                     .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .setRequiresDeviceIdle(true)
-                    .setRequiresCharging(true)
+//                    .setRequiresDeviceIdle(true)
+//                    .setRequiresCharging(true)
                     .build();
 
             Data imageData = new Data.Builder()
@@ -95,26 +97,29 @@ public class WorkActivity extends AppCompatActivity {
 //                    .setInitialDelay(10,TimeUnit.SECONDS)
                     .addTag(ID_MARK)
                     .build();
+
             Operation operation = WorkManager.getInstance(this)
                     .enqueue(oneTimeWorkRequest);
-            operation.getResult()
-                    .addListener(new Runnable() {
-                                     @Override
-                                     public void run() {
-                                         Log.i("print_logs",
-                                               "WorkActivity::run: ");
-                                     }
-                                 },
-                                 Executors.newSingleThreadExecutor());
-
             //工作前
             operation.getState()
                     .observe(this, new Observer<Operation.State>() {
                         @Override
                         public void onChanged(Operation.State state) {
-                            Log.i(UploadWorker.TAG, "onChanged: " + state.toString());
+                            Log.i("print_logs", "任务执行前: " + state.toString());
                         }
                     });
+
+            operation.getResult()
+                    .addListener(new Runnable() {
+                                     @Override
+                                     public void run() {
+                                         Log.i("print_logs",
+                                               "WorkActivity::run: UploadWorker");
+                                     }
+                                 },
+                                 Executors.newSingleThreadExecutor());
+
+
 
             // Observing your work
             // After you enqueue your work, WorkManager allows you to check on its status
@@ -123,8 +128,36 @@ public class WorkActivity extends AppCompatActivity {
                     .observe(this, new Observer<WorkInfo>() {
                         @Override
                         public void onChanged(WorkInfo workInfo) {
-                            if (workInfo != null && workInfo.getState() == WorkInfo.State.SUCCEEDED) {
-                                Log.i(UploadWorker.TAG, "observe: Work is finished!");
+                            assert workInfo != null;
+
+                            switch (workInfo.getState()) {
+                                case ENQUEUED:{
+                                    Log.i(TAG, "onChanged: ENQUEUED");
+                                    break;
+                                }
+                                case RUNNING:{
+                                    Log.i("print_logs", "RUNNING 当前进度: "+ workInfo.getProgress().getInt("progress", 0));
+                                    break;
+                                }
+                                case SUCCEEDED :{
+                                    Log.i(TAG, "onChanged: SUCCEEDED "+ workInfo.getOutputData().getString(UploadWorker.OUTPUT_URI)+", " +workInfo.getOutputData().getInt("progress", -1));
+                                    break;
+                                }
+                                case CANCELLED:{
+                                    Log.i(TAG, "onChanged: CANCELLED");
+                                    break;
+                                }
+                                case FAILED:{
+                                    Log.i(TAG, "onChanged: FAILED");
+                                    break;
+                                }
+                                case BLOCKED:{
+                                    Log.i(TAG, "onChanged: BLOCKED");
+                                    break;
+                                }
+                                default:{
+                                    Log.i(TAG, "onChanged: default");
+                                }
                             }
                         }
                     });

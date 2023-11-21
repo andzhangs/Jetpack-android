@@ -33,10 +33,9 @@ class LifeCycleServiceActivity : AppCompatActivity() {
             ),
             200
         )
-        
-        val liveData = MutableLiveData<String>()
 
-        LiveDataReactiveStreams.toPublisher(this,liveData).subscribe(object :Subscriber<String>{
+        val mLiveData = MutableLiveData<String>()
+        LiveDataReactiveStreams.toPublisher(this, mLiveData).subscribe(object : Subscriber<String> {
             override fun onSubscribe(s: Subscription?) {
                 if (BuildConfig.DEBUG) {
                     Log.i("print_logs", "LifeCycleServiceActivity::onSubscribe: ")
@@ -62,36 +61,43 @@ class LifeCycleServiceActivity : AppCompatActivity() {
             }
         })
 
-        LiveDataReactiveStreams.fromPublisher(object :Publisher<String>{
+        loadLiveDataReactiveStreams()
+
+        loadPublishProcessorWithLiveDataReactiveStreams()
+    }
+
+    private fun loadLiveDataReactiveStreams() {
+        LiveDataReactiveStreams.fromPublisher(object : Publisher<String> {
             override fun subscribe(s: Subscriber<in String>?) {
                 s?.onNext("我是来自 'fromPublisher' ")
                 s?.onComplete()
             }
-        }).observe(this,object :Observer<String>{
+        }).observe(this, object : Observer<String> {
             override fun onChanged(t: String?) {
                 if (BuildConfig.DEBUG) {
                     Log.i("print_logs", "LifeCycleServiceActivity::onChanged: $t")
                 }
             }
         })
+    }
 
-        val stringProcessor= PublishProcessor.create<String>()
-        val mLivedata=LiveDataReactiveStreams.fromPublisher(stringProcessor.toList().toFlowable())
-        Observable.interval(0,1,TimeUnit.SECONDS)
-            .map { it->
+    private fun loadPublishProcessorWithLiveDataReactiveStreams() {
+        val stringProcessor = PublishProcessor.create<String>()
+        val mLivedata = LiveDataReactiveStreams.fromPublisher(stringProcessor)
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+            .map { it ->
                 if (BuildConfig.DEBUG) {
-                    Log.i("print_logs", "LifeCycleServiceActivity::onCreate: $it")
+                    Log.d("print_logs", "PublishProcessor发送值： $it")
                 }
-                stringProcessor.onNext("value= $it")
+                stringProcessor.onNext(it.toString())
                 return@map it
             }.subscribe()
 
-        mLivedata.observe(this){
+        mLivedata.observe(this) {
             if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "LifeCycleServiceActivity::mLivedata: $it")
+                Log.i("print_logs", "LiveDataReactiveStreams接收值: $it")
             }
         }
-
     }
 
     private var mIntent: Intent? = null

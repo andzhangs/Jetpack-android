@@ -117,6 +117,9 @@ class NotificationWorker(val context: Context, val workerParameters: WorkerParam
     override suspend fun doWork(): Result {
         Log.i("print_logs", "NotificationWorker::doWork: ")
         foregroundInfoAsync.await()
+
+        //生成Data返回数据
+//        workDataOf("" to "")
         return Result.success()
     }
 
@@ -127,6 +130,7 @@ class NotificationWorker(val context: Context, val workerParameters: WorkerParam
     private var mCurrentProgress = 0
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
+
         mNotificationManagerCompat = NotificationManagerCompat.from(context)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

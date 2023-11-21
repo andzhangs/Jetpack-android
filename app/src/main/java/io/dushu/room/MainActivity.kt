@@ -1,7 +1,11 @@
 package io.dushu.room
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -9,7 +13,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.github.florent37.viewanimator.ViewAnimator
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -92,6 +96,7 @@ class MainActivity : AppCompatActivity() {
 //                duration(500)
 //                start()
 //            }
+            loadPermission()
         }
 
         Looper.myQueue().addIdleHandler {
@@ -100,7 +105,51 @@ class MainActivity : AppCompatActivity() {
             // 最后返回false，后续不用再监听了。
             false
         }
+    }
 
+    //android -12
+    private fun loadPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            when {
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
+                    if (BuildConfig.DEBUG) {
+                        Log.i("print_logs", "MainActivity::loadPermission: 1")
+                    }
+                }
+                shouldShowRequestPermissionRationale (Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+                    if (BuildConfig.DEBUG) {
+                        Log.i("print_logs", "MainActivity::loadPermission: 2")
+                    }
+                }
+
+                else -> {
+                    requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),100)
+                }
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode==100) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (BuildConfig.DEBUG) {
+                    Log.i("print_logs", "MainActivity::onRequestPermissionsResult: 1")
+                }
+            }else{
+                if (BuildConfig.DEBUG) {
+                    Log.i("print_logs", "MainActivity::onRequestPermissionsResult: 2")
+                }
+            }
+        }else{
+            if (BuildConfig.DEBUG) {
+                Log.i("print_logs", "MainActivity::onRequestPermissionsResult: 3")
+            }
+        }
     }
 
     external fun stringFromJNI(): String

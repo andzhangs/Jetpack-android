@@ -31,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         }
         ParcelUtils.putVersionedParcelable(bundle, "hello", userBean)
 
+
+
+
         val userBeans=ArrayList<UserBean>().apply {
             for (i in 1..10){
                 add(UserBean().apply { name="I'm from MainActivity $i" })
@@ -44,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         if (BuildConfig.DEBUG) {
             Log.i("print_logs", "MainActivity::load2: ${data?.name}")
         }
+
+
 
         val datas = ParcelUtils.getVersionedParcelableList<UserBean>(bundle,"lists")
         datas?.forEach {
