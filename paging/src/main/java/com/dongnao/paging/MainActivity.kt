@@ -1,7 +1,7 @@
-package com.safetyprotection.and.reverseanalysis.paging
+package com.dongnao.paging
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
