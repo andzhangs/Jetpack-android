@@ -30,7 +30,7 @@ class DataXPagingSource(private val apiService: ApiService) : PagingSource<Int, 
 
     /**
      * 以异步方式提取更多数据，用于在用户滚动过程中显示
-     * @param 对象保存有与加载操作相关的信息，包括以下信息:
+     * @param params 对象保存有与加载操作相关的信息，包括以下信息:
      *   A、要加载的页面的键 - 如果这是第一次调用 load()，LoadParams.key 将为 null。
      *      在这种情况下，必须定义初始页面键。对于我们的项目，我们将报道 ID 用作键。
      *      此外，我们还要在初始页面键的 ArticlePagingSource 文件顶部添加一个为 0 的 STARTING_KEY 常量。
