@@ -1,9 +1,9 @@
 package io.dushu.room
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,9 +12,16 @@ import io.dushu.room.dao.StudentDao
 import io.dushu.room.database.StudentDataBase
 import io.dushu.room.databinding.ActivityMainBinding
 import io.dushu.room.entity.Student
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.Random
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val KEY_ID = "key_id"
+    }
 
     private lateinit var mDataBinding: ActivityMainBinding
     private lateinit var studentDao: StudentDao
@@ -40,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     fun InsertClick(view: View) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                studentDao.insert(Student(0, "Jack", 20))
+                studentDao.insert(Student(0, "Jack", Random().nextInt(100)))
             }
         }
         notifyData()
@@ -49,36 +56,37 @@ class MainActivity : AppCompatActivity() {
     fun DeleteClick(view: View) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                studentDao.delete(Student(2, "Jack", 20))
+//                studentDao.delete(Student(2, "Jack", Random().nextInt(100)))
             }
         }
         notifyData()
     }
 
     fun UpdateClick(view: View) {
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                studentDao.update(Student(5, "Tom", 60))
+        val inputText = mDataBinding.acEtId.text.toString()
+        if (inputText.isNotEmpty()) {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    val age=Random().nextInt(100)
+                    studentDao.update(Student(inputText.toInt(), "Tom-$age", age))
+                }.also {
+                    notifyData()
+                }
             }
         }
-        notifyData()
     }
 
     fun QueryClick(view: View) {
-//        lifecycleScope.launch {
-//            list.clear()
-//            withContext(Dispatchers.IO) {
-//                list.addAll(studentDao.getStudentById(4))
-//            }
-//        }
+        val inputText = mDataBinding.acEtId.text.toString()
+        if (inputText.isNotEmpty()) {
+            studentDao.getStudentById(inputText.toInt()).observe(this) {
+                Log.i("print_logs", "MainActivity::QueryClick: ${it.size}")
+                list.clear()
+                list.addAll(it)
+            }
 
-        studentDao.getStudentById(4).observe(this){
-            Log.i("print_logs", "MainActivity::QueryClick: ${it.size}")
-            list.clear()
-            list.addAll(it)
+            notifyDataChanged()
         }
-
-        notifyDataChanged()
     }
 
     private fun notifyDataChanged() {

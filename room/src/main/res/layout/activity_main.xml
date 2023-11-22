@@ -11,6 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/acEt_id"
+            android:layout_width="150dp"
+            android:layout_height="?android:attr/actionBarSize"
+            android:inputType="number"
+            android:hint="输入id号"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="JumpClick"
+            android:text="跳转"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/acTvInsert"
@@ -26,7 +42,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/acEt_id"
             tools:ignore="OnClick" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -41,9 +57,10 @@
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/acTvInsert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/acTvInsert" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/acTvUpdate"
@@ -73,8 +90,8 @@
             android:textAllCaps="false"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/acTvDelete" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -92,10 +109,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/acTvQuery"
+            app:layout_constraintTop_toBottomOf="@id/acTvUpdate"
             tools:itemCount="5"
             tools:listitem="@layout/layout_item" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

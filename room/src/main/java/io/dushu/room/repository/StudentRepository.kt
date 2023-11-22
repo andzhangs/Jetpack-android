@@ -30,6 +30,13 @@ class StudentRepository(private val context: Context) {
     /**
      * 删除
      */
+    fun deleteById(id: Int) {
+        mStudentDao.deleteById(id)
+    }
+
+    /**
+     * 删除
+     */
     fun deleteStudent(student: Student?) {
         student?.apply {
             mStudentDao.delete(this)
@@ -64,6 +71,6 @@ class StudentRepository(private val context: Context) {
      */
     fun getAll(): LiveData<List<Student>> = mStudentDao.getAllStudent2()
 
-    fun getAllFlow() : Flow<List<Student>> = mStudentDao.getAllStudent3().flowOn(Dispatchers.IO)
+    fun getAllFlow(): Flow<List<Student>> = mStudentDao.getAllStudent3().flowOn(Dispatchers.IO)
 
 }

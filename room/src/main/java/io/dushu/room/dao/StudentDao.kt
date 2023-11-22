@@ -16,6 +16,9 @@ interface StudentDao {
     @Insert
     fun insert(vararg student: Student)
 
+    @Query("DELETE FROM student WHERE id=:id")
+    fun deleteById(id: Int)
+
     @Delete
     fun delete(student: Student)
 
@@ -42,6 +45,6 @@ interface StudentDao {
     fun getAllStudent2(): LiveData<List<Student>>
 
     @Query("SELECT * FROM student ORDER BY id")
-    fun getAllStudent3() : Flow<List<Student>>
+    fun getAllStudent3(): Flow<List<Student>>
 
 }

@@ -36,10 +36,10 @@ class StudentViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun clearAll() {
+    fun deleteById(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                mStudentRepository.clearAll()
+                mStudentRepository.deleteById(id)
             }
         }
     }
