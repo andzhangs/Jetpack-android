@@ -79,7 +79,7 @@ object TransformationUtils {
 
     private val mRandom: Random by lazy { Random() }
     fun getRandom(): BitmapTransformation {
-        val position = mRandom.nextInt(transformations.size)
+        val position = mRandom.nextInt(transformations.size - 1)
         return transformations[position]
     }
 }
