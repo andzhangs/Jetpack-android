@@ -18,22 +18,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<AppCompatButton>(R.id.acBtn_1).setOnClickListener {
-            load1()
+            send()
         }
         findViewById<AppCompatButton>(R.id.acBtn_2).setOnClickListener {
-            load2()
+            response()
         }
     }
 
-    private fun load1(){
+    private fun send(){
         val userBean = UserBean().apply {
             name = "I am MainActivity"
         }
         ParcelUtils.putVersionedParcelable(bundle, "hello", userBean)
-
-
-
-
+        
         val userBeans=ArrayList<UserBean>().apply {
             for (i in 1..10){
                 add(UserBean().apply { name="I'm from MainActivity $i" })
@@ -42,18 +39,19 @@ class MainActivity : AppCompatActivity() {
         ParcelUtils.putVersionedParcelableList(bundle,"lists",userBeans)
     }
 
-    private fun load2(){
+    
+    
+    
+    private fun response(){
         val data = ParcelUtils.getVersionedParcelable<UserBean>(bundle,"hello")
         if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "MainActivity::load2: ${data?.name}")
+            Log.i("print_logs", "response-1: ${data?.name}")
         }
-
-
-
+        
         val datas = ParcelUtils.getVersionedParcelableList<UserBean>(bundle,"lists")
         datas?.forEach {
             if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::load2: ${it?.name}")
+                Log.i("print_logs", "response-2: ${it?.name}")
             }
         }
     }

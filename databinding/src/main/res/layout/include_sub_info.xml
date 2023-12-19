@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,10 +16,10 @@
             type="io.dushu.databinding.Idol" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView"
@@ -50,8 +52,8 @@
             android:layout_marginTop="50dp"
             android:onClick="@{clickListener::btnOnClick}"
             android:text="跳转到Main2Activity"
-            android:textSize="14sp"
             android:textAllCaps="false"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -62,11 +64,10 @@
             android:layout_marginTop="50dp"
             android:onClick="@{clickListener::btnOnClickDemo}"
             android:text="跳转到Main3Activity"
-            android:textSize="14sp"
             android:textAllCaps="false"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

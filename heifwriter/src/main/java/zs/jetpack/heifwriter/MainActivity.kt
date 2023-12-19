@@ -1,9 +1,13 @@
 package zs.jetpack.heifwriter
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.app.ActivityCompat
 import androidx.heifwriter.HeifWriter
 
 /**
@@ -24,16 +28,41 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<AppCompatButton>(R.id.acBtn).setOnClickListener {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ),
+                    100
+                )
+            }
+        }
+    }
 
-            val path="/storage/emulated/0/media/9600569.jpg"
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 100) {
+            if (BuildConfig.DEBUG) {
+                Log.i("print_logs", "MainActivity::onRequestPermissionsResult: ")
+            }
+            val imgPath = "/storage/emulated/0/DCIM/Camera/20231212_143728.heic"
 
             val heifWriter =
-                HeifWriter.Builder(path, 200, 200, HeifWriter.INPUT_MODE_BUFFER)
-                    .setQuality(80)
+                HeifWriter.Builder(imgPath, 200, 200, HeifWriter.INPUT_MODE_BUFFER)
+                    .setQuality(50)
                     .build()
 
-
-//            heifWriter.addBitmap(BitmapFactory.decodeFile(imgPath))
+            heifWriter.addBitmap(BitmapFactory.decodeFile(imgPath))
             heifWriter.start()
         }
     }
