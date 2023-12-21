@@ -8,7 +8,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
  * email: zhangshuai@dushu365.com
  * mark:
  */
-internal class MyLifeCycleApplication : Application() {
+internal class MyLifecycleApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

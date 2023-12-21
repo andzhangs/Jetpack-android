@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.dushu.lifcycle.R
 
-class LifeCycleActivity : AppCompatActivity() {
+class LifecycleActivity : AppCompatActivity() {
 
     private lateinit var chronometer: MyChronometer
 
