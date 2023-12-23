@@ -1,5 +1,6 @@
 package com.dongnao.hilt.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.dongnao.hilt.R
 import com.dongnao.hilt.databinding.FragmentMainBinding
+import com.dongnao.hilt.reciver.MyHiltReceiver
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +36,12 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mDataBinding.acTvTime.setOnClickListener {
+            requireActivity().sendBroadcast(Intent().apply {
+                action = MyHiltReceiver.ACTION_SEND
+            })
+        }
     }
 
     override fun onDestroyView() {

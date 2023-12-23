@@ -15,11 +15,11 @@ class MainViewModel @Inject constructor(private val analyticsService: AnalyticsS
     ViewModel() {
 
     init {
-        analyticsService.analyticsMethods("i am from MainViewModel.init.")
+        analyticsService.analyticsMethods("I am from MainViewModel.init.")
     }
 
     fun clickInfo() {
-        analyticsService.analyticsMethods("i am from MainViewModel.clickInfo")
+        analyticsService.analyticsMethods("I am from MainViewModel.clickInfo")
     }
 
     val mShowMsg: LiveData<String> = liveData {

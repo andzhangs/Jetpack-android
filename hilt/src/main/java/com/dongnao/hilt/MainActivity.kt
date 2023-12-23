@@ -1,6 +1,8 @@
 package com.dongnao.hilt
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import com.dongnao.hilt.model.ActivityBean
 import com.dongnao.hilt.model.ActivityContextBean
 import com.dongnao.hilt.model.ApplicationBean
 import com.dongnao.hilt.model.ApplicationContextBean
+import com.dongnao.hilt.reciver.MyHiltReceiver
 import com.dongnao.hilt.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -56,14 +59,26 @@ class MainActivity : AppCompatActivity() {
 
         mActivityContextBean.showCode()
         mActivityBean.showCode()
+
+
+        val intentFilter = IntentFilter().apply {
+            addAction(MyHiltReceiver.ACTION_SEND)
+        }
+        registerReceiver(mReceiver, intentFilter)
     }
 
     fun printMsg() {
         Log.d("print_logs", "MainActivity::printMsg")
+        sendBroadcast(Intent().apply {
+            action = MyHiltReceiver.ACTION_SEND
+        })
     }
+
+    private val mReceiver: MyHiltReceiver by lazy { MyHiltReceiver() }
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterReceiver(mReceiver)
         mDataBinding.unbind()
     }
 }
