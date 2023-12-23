@@ -30,14 +30,10 @@ class MainActivity : AppCompatActivity() {
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         documentLauncher = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onCreate:uri= $it")
-            }
+            Log.i("print_logs", "MainActivity::onCreate:uri= $it")
             it?.apply {
                 getPathByUri(this)?.also { filePath ->
-                    if (BuildConfig.DEBUG) {
-                        Log.i("print_logs", "MainActivity::onCreate: $filePath")
-                    }
+                    Log.i("print_logs", "MainActivity::onCreate: $filePath")
                 }
 
                 encryptFile("/storage/emulated/0/Documents/HelloWorld.txt")
@@ -103,8 +99,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPathByUri(uri:Uri):String? {
-         return if (uri.scheme == "content") {
+    private fun getPathByUri(uri: Uri): String? {
+        return if (uri.scheme == "content") {
             val cursor = contentResolver.query(uri, null, null, null, null)
             cursor?.let {
                 if (it.moveToFirst()) {

@@ -13,28 +13,29 @@ class RemoteCallBackService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "RemoteCallBackService::onCreate: ")
-        }
+        Log.i("print_logs", "RemoteCallBackService::onCreate: ")
     }
 
     override fun onBind(intent: Intent): IBinder = object : IServerCallBack.Stub() {
 
         override fun register(callback: IClientCallBack?) {
             mListeners.register(callback)
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "RemoteCallBackService:: IServerCallBack.register: ${mListeners.beginBroadcast()}, ${mListeners.finishBroadcast()}")
-            }
+            Log.i(
+                "print_logs",
+                "RemoteCallBackService:: IServerCallBack.register: ${mListeners.beginBroadcast()}, ${mListeners.finishBroadcast()}"
+            )
         }
 
         override fun unregister(callback: IClientCallBack?) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "RemoteCallBackService:: IServerCallBack.unregister-before: ${mListeners.beginBroadcast()}, ${mListeners.finishBroadcast()}")
-            }
+            Log.i(
+                "print_logs",
+                "RemoteCallBackService:: IServerCallBack.unregister-before: ${mListeners.beginBroadcast()}, ${mListeners.finishBroadcast()}"
+            )
             mListeners.unregister(callback)
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "RemoteCallBackService:: IServerCallBack.unregister-after: ${mListeners.beginBroadcast()}, ${mListeners.finishBroadcast()}")
-            }
+            Log.i(
+                "print_logs",
+                "RemoteCallBackService:: IServerCallBack.unregister-after: ${mListeners.beginBroadcast()}, ${mListeners.finishBroadcast()}"
+            )
         }
 
         /**
@@ -42,9 +43,7 @@ class RemoteCallBackService : Service() {
          * 有个Bug，服务解绑了，还能接收到信息
          */
         override fun callServer(msg: String?) {
-            if (BuildConfig.DEBUG) {
-                Log.d("print_logs", "RemoteCallBackService::callServer: $msg")
-            }
+            Log.d("print_logs", "RemoteCallBackService::callServer: $msg")
 
             Toast.makeText(this@RemoteCallBackService, msg, Toast.LENGTH_SHORT).show()
 
@@ -52,29 +51,23 @@ class RemoteCallBackService : Service() {
         }
     }
 
-    private fun sendMsg(){
+    private fun sendMsg() {
         try {
             val len = mListeners.beginBroadcast()
             if (len >= 1) {
                 mListeners.getBroadcastItem(len - 1).onReceived("我是来服务的数据！")
             } else {
-                if (BuildConfig.DEBUG) {
-                    Log.e("print_logs", "RemoteCallBackService::callServer: 未注册监听")
-                }
+                Log.e("print_logs", "RemoteCallBackService::callServer: 未注册监听")
             }
             mListeners.finishBroadcast()
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
-            if (BuildConfig.DEBUG) {
-                Log.e("print_logs", "RemoteCallBackService::callServer: $e")
-            }
+            Log.e("print_logs", "RemoteCallBackService::callServer: $e")
         }
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
-        if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "RemoteCallBackService::onUnbind: ")
-        }
+        Log.i("print_logs", "RemoteCallBackService::onUnbind: ")
         mListeners.kill()
         return super.onUnbind(intent)
     }

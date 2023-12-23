@@ -55,31 +55,24 @@ class MainActivity : AppCompatActivity() {
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onServiceConnected: ")
-            }
+            Log.i("print_logs", "MainActivity::onServiceConnected: ")
             mIServerCallBack = IServerCallBack.Stub.asInterface(service)
             try {
                 mIServerCallBack?.register(mClientCallBack)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onServiceDisconnected: ")
-            }
-
+            Log.i("print_logs", "MainActivity::onServiceDisconnected: ")
         }
     }
 
     private val mClientCallBack = object : IClientCallBack.Stub() {
 
         override fun onReceived(msg: String?) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onReceived: $msg")
-            }
+            Log.i("print_logs", "MainActivity::onReceived: $msg")
         }
     }
 
@@ -109,9 +102,7 @@ class MainActivity : AppCompatActivity() {
     private val mDataInfoCallBack = object : IDataInfoCallBack.Stub() {
 
         override fun onCall(value: Int) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onCall: $value")
-            }
+            Log.i("print_logs", "MainActivity::onCall: $value")
         }
     }
 

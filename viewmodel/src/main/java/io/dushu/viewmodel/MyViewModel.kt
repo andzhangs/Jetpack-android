@@ -22,9 +22,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
-        if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "MyViewModel::onCleared: ")
-        }
+        Log.i("print_logs", "MyViewModel::onCleared: ")
     }
-    
 }

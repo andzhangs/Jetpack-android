@@ -112,14 +112,10 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when {
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
-                    if (BuildConfig.DEBUG) {
                         Log.i("print_logs", "MainActivity::loadPermission: 1")
-                    }
                 }
                 shouldShowRequestPermissionRationale (Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-                    if (BuildConfig.DEBUG) {
                         Log.i("print_logs", "MainActivity::loadPermission: 2")
-                    }
                 }
 
                 else -> {
@@ -137,18 +133,12 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode==100) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (BuildConfig.DEBUG) {
                     Log.i("print_logs", "MainActivity::onRequestPermissionsResult: 1")
-                }
             }else{
-                if (BuildConfig.DEBUG) {
                     Log.i("print_logs", "MainActivity::onRequestPermissionsResult: 2")
-                }
             }
         }else{
-            if (BuildConfig.DEBUG) {
                 Log.i("print_logs", "MainActivity::onRequestPermissionsResult: 3")
-            }
         }
     }
 

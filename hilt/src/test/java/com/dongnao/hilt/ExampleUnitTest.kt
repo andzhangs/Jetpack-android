@@ -1,4 +1,4 @@
-package io.jetpack.hilt
+package com.dongnao.hilt
 
 import org.junit.Test
 

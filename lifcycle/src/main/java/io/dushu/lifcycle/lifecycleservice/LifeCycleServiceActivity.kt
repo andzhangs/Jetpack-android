@@ -10,7 +10,6 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import io.dushu.lifcycle.BuildConfig
 import io.dushu.lifcycle.R
 import io.reactivex.Observable
 import io.reactivex.processors.PublishProcessor
@@ -37,27 +36,19 @@ class LifeCycleServiceActivity : AppCompatActivity() {
         val mLiveData = MutableLiveData<String>()
         LiveDataReactiveStreams.toPublisher(this, mLiveData).subscribe(object : Subscriber<String> {
             override fun onSubscribe(s: Subscription?) {
-                if (BuildConfig.DEBUG) {
-                    Log.i("print_logs", "LifeCycleServiceActivity::onSubscribe: ")
-                }
+                Log.i("print_logs", "LifeCycleServiceActivity::onSubscribe: ")
             }
 
             override fun onError(t: Throwable?) {
-                if (BuildConfig.DEBUG) {
-                    Log.d("print_logs", "LifeCycleServiceActivity::onError: $t")
-                }
+                Log.d("print_logs", "LifeCycleServiceActivity::onError: $t")
             }
 
             override fun onComplete() {
-                if (BuildConfig.DEBUG) {
-                    Log.i("print_logs", "LifeCycleServiceActivity::onComplete: ")
-                }
+                Log.i("print_logs", "LifeCycleServiceActivity::onComplete: ")
             }
 
             override fun onNext(t: String?) {
-                if (BuildConfig.DEBUG) {
-                    Log.i("print_logs", "LifeCycleServiceActivity::onNext: $t")
-                }
+                Log.i("print_logs", "LifeCycleServiceActivity::onNext: $t")
             }
         })
 
@@ -74,9 +65,7 @@ class LifeCycleServiceActivity : AppCompatActivity() {
             }
         }).observe(this, object : Observer<String> {
             override fun onChanged(t: String?) {
-                if (BuildConfig.DEBUG) {
-                    Log.i("print_logs", "LifeCycleServiceActivity::onChanged: $t")
-                }
+                Log.i("print_logs", "LifeCycleServiceActivity::onChanged: $t")
             }
         })
     }
@@ -86,17 +75,13 @@ class LifeCycleServiceActivity : AppCompatActivity() {
         val mLivedata = LiveDataReactiveStreams.fromPublisher(stringProcessor)
         Observable.interval(0, 1, TimeUnit.SECONDS)
             .map { it ->
-                if (BuildConfig.DEBUG) {
-                    Log.d("print_logs", "PublishProcessor发送值： $it")
-                }
+                Log.d("print_logs", "PublishProcessor发送值： $it")
                 stringProcessor.onNext(it.toString())
                 return@map it
             }.subscribe()
 
         mLivedata.observe(this) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "LiveDataReactiveStreams接收值: $it")
-            }
+            Log.i("print_logs", "LiveDataReactiveStreams接收值: $it")
         }
     }
 

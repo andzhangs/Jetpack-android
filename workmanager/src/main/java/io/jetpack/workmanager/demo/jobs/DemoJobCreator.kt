@@ -6,7 +6,6 @@ import com.evernote.android.job.Job
 import com.evernote.android.job.JobCreator
 import com.evernote.android.job.JobManager
 import com.evernote.android.job.JobRequest
-import io.jetpack.workmanager.BuildConfig
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -23,12 +22,12 @@ open class DemoJobCreator : JobCreator {
         @Synchronized
         @JvmStatic
         fun scheduleHob(activity: Activity) {
-            Log.i("print_logs", "DemoJobCreator::scheduleHob::isDebug ${BuildConfig.DEBUG}")
+            Log.i("print_logs", "DemoJobCreator::scheduleHob::isDebug ")
 
-            var delayTime = if (BuildConfig.DEBUG) 900060L else 900900L
+            var delayTime = 900900L //if (BuildConfig.DEBUG) 900060L else 900900L
             val jobId = JobRequest.Builder(DemoNotificationJob.TAG)
                 .apply {
-                    setPeriodic(TimeUnit.SECONDS.toMillis(delayTime), TimeUnit.SECONDS.toMillis(if (BuildConfig.DEBUG) 900030L else 900300L))
+                    setPeriodic(TimeUnit.SECONDS.toMillis(delayTime), TimeUnit.SECONDS.toMillis(900300L))
                     setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
                     setUpdateCurrent(true)
                 }.build().schedule()

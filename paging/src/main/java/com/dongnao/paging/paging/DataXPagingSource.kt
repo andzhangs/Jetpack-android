@@ -3,7 +3,6 @@ package com.dongnao.paging.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.dongnao.paging.BuildConfig
 import com.dongnao.paging.bean.DataX
 import com.dongnao.paging.http.ApiService
 import kotlin.math.max
@@ -20,9 +19,7 @@ class DataXPagingSource(private val apiService: ApiService) : PagingSource<Int, 
 
     override fun getRefreshKey(state: PagingState<Int, DataX>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
-        if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "getRefreshKey: anchorPosition= $anchorPosition")
-        }
+        Log.i("print_logs", "getRefreshKey: anchorPosition= $anchorPosition")
         return state.closestItemToPosition(anchorPosition)?.id ?: return null
     }
 
@@ -40,24 +37,18 @@ class DataXPagingSource(private val apiService: ApiService) : PagingSource<Int, 
         return try {
             val page = params.key ?: STARTING_KEY
 
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "DataXPagingSource::load: ${params.key}, $page")
-            }
+            Log.i("print_logs", "DataXPagingSource::load: ${params.key}, $page")
 
             val response = apiService.getWanData(page, 1)
 
 
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "response: $response")
-            }
+            Log.i("print_logs", "response: $response")
 
             val items = response.data.datas
             val prevKey = if (page > 1) page - 1 else null
             val nextKey = if (items.isNotEmpty()) page + 1 else null
 
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "prevKey: $prevKey, nextKey= $nextKey")
-            }
+            Log.i("print_logs", "prevKey: $prevKey, nextKey= $nextKey")
             LoadResult.Page(items, prevKey, nextKey)
         } catch (e: Exception) {
             e.printStackTrace()

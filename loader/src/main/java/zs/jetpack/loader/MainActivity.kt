@@ -46,38 +46,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val mOnLoadCompleteListener = Loader.OnLoadCompleteListener<UserBean> { loader, data ->
-        if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "MainActivity::OnLoadCompleteListener: $data")
-        }
+        Log.i("print_logs", "MainActivity::OnLoadCompleteListener: $data")
     }
 
-    private val mOnLoadCanceledListener=Loader.OnLoadCanceledListener<UserBean>{
-        if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "MainActivity::: OnLoadCanceledListener")
-        }
+    private val mOnLoadCanceledListener = Loader.OnLoadCanceledListener<UserBean> {
+        Log.i("print_logs", "MainActivity::: OnLoadCanceledListener")
     }
 
     private val mLoaderCallbacks = object : LoaderCallbacks<UserBean> {
 
         override fun onCreateLoader(id: Int, args: Bundle?): Loader<UserBean> {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onCreateLoader: ${args?.getString("key")}")
-            }
+            Log.i("print_logs", "MainActivity::onCreateLoader: ${args?.getString("key")}")
             return MyLoader(this@MainActivity)
         }
 
         override fun onLoaderReset(loader: Loader<UserBean>) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onLoaderReset: ")
-            }
+            Log.i("print_logs", "MainActivity::onLoaderReset: ")
         }
 
         override fun onLoadFinished(loader: Loader<UserBean>, data: UserBean?) {
             //// 处理加载完成后的数据
             //// 将数据传递给 UI 线程进行显示
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onLoadFinished: ")
-            }
+            Log.i("print_logs", "MainActivity::onLoadFinished: ")
         }
 
     }
@@ -85,78 +75,56 @@ class MainActivity : AppCompatActivity() {
     private class MyLoader(context: Context) : AsyncTaskLoader<UserBean>(context) {
 
         init {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::: ")
-            }
+            Log.i("print_logs", "MyLoader::: ")
         }
 
         override fun loadInBackground(): UserBean {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::loadInBackground: ")
-            }
+            Log.i("print_logs", "MyLoader::loadInBackground: ")
             return UserBean("你好！！！")
         }
 
         override fun onLoadInBackground(): UserBean? {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onLoadInBackground: ")
-            }
+            Log.i("print_logs", "MyLoader::onLoadInBackground: ")
             return super.onLoadInBackground()
         }
 
         override fun onStartLoading() {
             super.onStartLoading()
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onStartLoading: ")
-            }
+            Log.i("print_logs", "MyLoader::onStartLoading: ")
         }
 
         override fun onStopLoading() {
             super.onStopLoading()
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onStopLoading: ")
-            }
+            Log.i("print_logs", "MyLoader::onStopLoading: ")
         }
 
         override fun onForceLoad() {
             super.onForceLoad()
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onForceLoad: ")
-            }
+            Log.i("print_logs", "MyLoader::onForceLoad: ")
         }
 
         override fun onAbandon() {
             super.onAbandon()
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onAbandon: ")
-            }
+            Log.i("print_logs", "MyLoader::onAbandon: ")
         }
 
         override fun onReset() {
             super.onReset()
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onReset: ")
-            }
+            Log.i("print_logs", "MyLoader::onReset: ")
         }
 
         override fun onContentChanged() {
             super.onContentChanged()
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onContentChanged: ")
-            }
+            Log.i("print_logs", "MyLoader::onContentChanged: ")
         }
 
         override fun onCanceled(data: UserBean?) {
             super.onCanceled(data)
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onCanceled: ")
-            }
+            Log.i("print_logs", "MyLoader::onCanceled: ")
         }
 
         override fun onCancelLoad(): Boolean {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MyLoader::onCancelLoad: ")
-            }
+            Log.i("print_logs", "MyLoader::onCancelLoad: ")
             return super.onCancelLoad()
         }
     }

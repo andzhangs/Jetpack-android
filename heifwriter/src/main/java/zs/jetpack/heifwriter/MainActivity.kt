@@ -23,9 +23,7 @@ class MainActivity : AppCompatActivity() {
             imgPath = it
         }
 
-        if (BuildConfig.DEBUG) {
-            Log.i("print_logs", "imgPath: $imgPath")
-        }
+        Log.i("print_logs", "imgPath: $imgPath")
 
         findViewById<AppCompatButton>(R.id.acBtn).setOnClickListener {
             if (ActivityCompat.checkSelfPermission(
@@ -52,9 +50,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 100) {
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "MainActivity::onRequestPermissionsResult: ")
-            }
+            Log.i("print_logs", "MainActivity::onRequestPermissionsResult: ")
             val imgPath = "/storage/emulated/0/DCIM/Camera/20231212_143728.heic"
 
             val heifWriter =

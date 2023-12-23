@@ -122,9 +122,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "认证状态：$errorCode, $errString", Toast.LENGTH_SHORT)
                 .show()
 
-            if (BuildConfig.DEBUG) {
-                Log.i("print_logs", "onAuthenticationError: $msg")
-            }
+            Log.i("print_logs", "onAuthenticationError: $msg")
         }
 
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
