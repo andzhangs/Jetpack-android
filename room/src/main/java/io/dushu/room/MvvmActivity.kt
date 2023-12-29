@@ -8,7 +8,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.dushu.room.databinding.ActivityMainBinding
@@ -45,8 +47,10 @@ class MvvmActivity : AppCompatActivity() {
         getAll()
 
         lifecycleScope.launch {
-            mStudentViewModel.getAllStudent3().collect {
-                Log.i("print_logs", "getAllStudent3: ${it.size}")
+            repeatOnLifecycle(Lifecycle.State.CREATED){
+                mStudentViewModel.getAllStudent3().collect {
+                    Log.i("print_logs", "getAllStudent3: ${it.size}")
+                }
             }
         }
     }
