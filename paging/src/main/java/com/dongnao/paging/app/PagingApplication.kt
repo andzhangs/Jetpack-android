@@ -58,7 +58,7 @@ class PagingApplication : Application() {
 //            .methodCount(2) // (Optional) How many method line to show. Default 2
 //            .methodOffset(5) // (Optional) Hides internal method calls up to offset. Default 5
 //            .logStrategy(customLog) // (Optional) Changes the log strategy to print out. Default LogCat
-            .tag("logger_http") // (Optional) Global tag for every log. Default PRETTY_LOGGER
+            .tag("print_logs") // (Optional) Global tag for every log. Default PRETTY_LOGGER
             .build()
         Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
@@ -122,7 +122,7 @@ class PagingApplication : Application() {
                 mMessage.append("$localMsg\n")
                 // 响应结束，打印整条日志
                 if (localMsg!!.startsWith("<-- END HTTP")) {
-                    Logger.i(mMessage.toString())
+//                    Logger.i(mMessage.toString())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

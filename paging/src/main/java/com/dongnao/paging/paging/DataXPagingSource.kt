@@ -5,6 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.dongnao.paging.bean.DataX
 import com.dongnao.paging.http.ApiService
+import com.orhanobut.logger.Logger
 import kotlin.math.max
 
 /**
@@ -17,10 +18,20 @@ class DataXPagingSource(private val apiService: ApiService) : PagingSource<Int, 
 
     private val STARTING_KEY = 1
 
+    //刷新的起始页码位置
     override fun getRefreshKey(state: PagingState<Int, DataX>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         Log.i("print_logs", "getRefreshKey: anchorPosition= $anchorPosition")
         return state.closestItemToPosition(anchorPosition)?.id ?: return null
+
+//        if (BuildConfig.DEBUG) {
+//            Log.i("print_logs", "DataXPagingSource::getRefreshKey: ")
+//        }
+//
+//        return state.anchorPosition?.let {
+//            val anchorPage=state.closestPageToPosition(it)
+//            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+//        }
     }
 
     private fun ensureValidKey(key: Int) = max(STARTING_KEY, key)
@@ -42,13 +53,15 @@ class DataXPagingSource(private val apiService: ApiService) : PagingSource<Int, 
             val response = apiService.getWanData(page, 1)
 
 
-            Log.i("print_logs", "response: $response")
+//            Log.i("print_logs", "response: $response")
+            Logger.json(response.toString())
 
             val items = response.data.datas
             val prevKey = if (page > 1) page - 1 else null
             val nextKey = if (items.isNotEmpty()) page + 1 else null
 
             Log.i("print_logs", "prevKey: $prevKey, nextKey= $nextKey")
+
             LoadResult.Page(items, prevKey, nextKey)
         } catch (e: Exception) {
             e.printStackTrace()

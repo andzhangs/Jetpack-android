@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.Jetpackandroid" parent="Theme.Material3.DayNight.NoActionBar">
 
         <!--    方式一：代码设置状态栏/导航栏的透明度    -->
@@ -38,14 +39,7 @@
         -->
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
 
-        <!--    在带有刘海或者挖孔屏上，横屏时刘海或者挖孔的那条边会有黑边，解决方法是    -->
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges
-        </item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 
     </style>
-
-    <style name="Theme.Jetpackandroid" parent="Base.Theme.Jetpackandroid">
-
-    </style>
-
 </resources>

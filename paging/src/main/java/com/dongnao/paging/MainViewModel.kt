@@ -22,7 +22,7 @@ class MainViewModel : ViewModel(), DefaultLifecycleObserver {
 
     private val pagingSource = DataXPagingSource(mApiService)
 
-    private val pagingConfig = PagingConfig(pageSize = 30, enablePlaceholders = false)
+    private val pagingConfig = PagingConfig(pageSize = 5, enablePlaceholders = false)
 
     private val pager = Pager(pagingConfig, pagingSourceFactory = { pagingSource })
 
