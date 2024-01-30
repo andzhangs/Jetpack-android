@@ -23,15 +23,14 @@ class DataXPagingSource(private val apiService: ApiService) : PagingSource<Int, 
         val anchorPosition = state.anchorPosition ?: return null
         Log.i("print_logs", "getRefreshKey: anchorPosition= $anchorPosition")
         return state.closestItemToPosition(anchorPosition)?.id ?: return null
-
-//        if (BuildConfig.DEBUG) {
-//            Log.i("print_logs", "DataXPagingSource::getRefreshKey: ")
-//        }
-//
-//        return state.anchorPosition?.let {
-//            val anchorPage=state.closestPageToPosition(it)
+//        val refreshKey = state.anchorPosition?.let {
+//            val anchorPage = state.closestPageToPosition(it)
 //            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
 //        }
+//        if (BuildConfig.DEBUG) {
+//            Log.i("print_logs", "上一页: $refreshKey")
+//        }
+        return STARTING_KEY
     }
 
     private fun ensureValidKey(key: Int) = max(STARTING_KEY, key)
