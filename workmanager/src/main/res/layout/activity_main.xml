@@ -25,4 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="MyWork任务" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/acBtnGo_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="启动自定义" />
 </androidx.appcompat.widget.LinearLayoutCompat>

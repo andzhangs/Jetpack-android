@@ -3,6 +3,7 @@ package io.jetpack.workmanager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import com.android.jetpack.workmanager.works.TestWorker
 import io.jetpack.workmanager.base.BaseActivity
 import io.jetpack.workmanager.databinding.ActivityMainBinding
 import io.jetpack.workmanager.demo.jobs.MainJobActivity
@@ -35,6 +36,23 @@ class MainActivity : BaseActivity() {
         }
 
         getService(aPiService)
+
+        mBinding.acBtnGoTest.setOnClickListener {
+            test()
+        }
+
+        TestWorker.setWorkListener(this)
+    }
+
+    private fun test(){
+        for (i in 1..3){
+            TestWorker.start(this)
+        }
+
+//        lifecycleScope.launchWhenCreated {
+//            delay(6000L)
+//            TestWorker.stop(this@MainActivity)
+//        }
     }
 
     private fun getService(service: Api.APiService) {

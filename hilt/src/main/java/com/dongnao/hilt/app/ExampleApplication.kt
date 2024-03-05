@@ -17,4 +17,8 @@ class ExampleApplication : Application() { //, Configuration.Provider {
 //            .setMinimumLoggingLevel(Log.INFO)
 //            .build()
 //    }
+
+    override fun onCreate() {
+        super.onCreate()
+    }
 }
